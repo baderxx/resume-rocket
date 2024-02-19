@@ -1,7 +1,7 @@
 name = "resume-rocket"
 type = "javascript"
 workers_dev = true
-main = "./.output"
+main = "./.output/server/index.mjs"
 
 [site]
 bucket = "./.output/public"
