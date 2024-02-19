@@ -23,7 +23,7 @@ const locales: Set<LocaleObject> = new Set([
 
 
 function buildLocale(): LocaleObject[] {
-    const useableLocales: Set<LocaleObject> = new Set(); // Use Set for uniqueness
+    const useableLocales: Set<LocaleObject> = new Set();
 
     for (const baseLocale of locales) {
         const countryLocales = countriesLocaleVariants.get(baseLocale.code);
@@ -32,7 +32,7 @@ function buildLocale(): LocaleObject[] {
             countryLocales.forEach(locale => {
                 const entry: LocaleObject = {
                     ...baseLocale,
-                    ...locale, // Merge properties from country-specific locale
+                    ...locale,
                     files: [baseLocale.file!, `${locale.iso}.js`] as LocaleFile[]
                 };
                 useableLocales.add(entry); 
@@ -42,7 +42,6 @@ function buildLocale(): LocaleObject[] {
         }
     }
 
-    // Convert back to array for consistency and sorting
     return Array.from(useableLocales).sort((a, b) => a.code.localeCompare(b.code)); 
 }
 
