@@ -11,9 +11,9 @@ User Authentication (Optional): Secure user account creation and resume storage.
 ## Todo List
 
 #### Core Setup
-- [ ] Initiate Nuxt 3 project'
-- [ ] Select preferred UI framework (if not using a barebones start)
-- [ ] Integrate internationalization (i18n) module for Nuxt 3
+- [x] Initiate Nuxt 3 project'
+- [x] Select preferred UI framework (Vuetify)
+- [x] Integrate internationalization (i18n) module for Nuxt 3
 
 #### Core Functionality
 - [ ] Design resume data model (sections, fields, etc.)
