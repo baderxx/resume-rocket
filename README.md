@@ -1,75 +1,48 @@
-# Nuxt 3 Minimal Starter
+# Resume Rocket 🚀
 
-Look at the [Nuxt 3 documentation](https://nuxt.com/docs/getting-started/introduction) to learn more.
+A powerful multilingual resume builder powered by Nuxt 3. Create professional resumes tailored to different languages and cultures with ease.
 
-## Setup
+## Key Features
+Multilingual Support: Seamlessly switch between supported languages for resume content and interface.
+Customizable Templates: Choose from a collection of professionally designed resume templates.
+Guided Content Creation: Step-by-step guidance for filling out resume sections with best practices.
+Export Options: Generate resumes in various formats (PDF, DOCX, HTML) for online and offline use.
+User Authentication (Optional): Secure user account creation and resume storage.
+## Todo List
 
-Make sure to install the dependencies:
+#### Core Setup
+- [ ] Initiate Nuxt 3 project'
+- [ ] Select preferred UI framework (if not using a barebones start)
+- [ ] Integrate internationalization (i18n) module for Nuxt 3
 
-```bash
-# npm
-npm install
+#### Core Functionality
+- [ ] Design resume data model (sections, fields, etc.)
+- [ ] Implement template selection
+- [ ] Create forms for individual resume sections
+- [ ] Handle data input and validation (client-side and possibly server-side)
+- [ ] Develop the resume preview/rendering component
+- [ ] Handle resume export (PDF, DOCX, others)
 
-# pnpm
-pnpm install
+#### Language Handling
+- [ ] Define supported languages
+- [ ] Implement a language switching mechanism (UI element)
+- [ ] Store and retrieve language-specific content:
+- [ ] Resume data
+- [ ] UI elements (labels, instructions, etc.)
 
-# yarn
-yarn install
+#### Optional: Advanced Features
+- [ ] User accounts and resume storage (database integration)
+- [ ] Resume versioning
+- [ ] Template customization options
 
-# bun
-bun install
-```
+#### Testing
+- [ ] Write unit tests for components and logic
+- [ ] Include cross-language testing scenarios
+- [ ] Perform user testing
 
-## Development Server
+## Getting Started
+(Include prerequisites and basic installation instructions if applicable)
 
-Start the development server on `http://localhost:3000`:
-
-```bash
-# npm
-npm run dev
-
-# pnpm
-pnpm run dev
-
-# yarn
-yarn dev
-
-# bun
-bun run dev
-```
-
-## Production
-
-Build the application for production:
-
-```bash
-# npm
-npm run build
-
-# pnpm
-pnpm run build
-
-# yarn
-yarn build
-
-# bun
-bun run build
-```
-
-Locally preview production build:
-
-```bash
-# npm
-npm run preview
-
-# pnpm
-pnpm run preview
-
-# yarn
-yarn preview
-
-# bun
-bun run preview
-```
-
-Check out the [deployment documentation](https://nuxt.com/docs/getting-started/deployment) for more information.
+Clone this repository.
+Run npm install or yarn install to install dependencies.
+Run npm run dev or yarn dev to start the development server.
