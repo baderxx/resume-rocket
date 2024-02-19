@@ -3,5 +3,5 @@ type = "javascript"
 workers_dev = true
 
 [site]
-bucket = "./output" 
-entry-point = "./workers"
+bucket = "./.output/public"
+entry-point = "./.output"
