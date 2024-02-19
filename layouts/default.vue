@@ -1,4 +1,5 @@
 <script setup>
+import { SpeedInsights } from "@vercel/speed-insights/nuxt"
 const route = useRoute()
 const { t } = useI18n()
 const head = useLocaleHead({
@@ -41,6 +42,7 @@ const title = computed(() => t('layouts.title', { title: t(route.meta.title ?? '
       </Head>
       <Body>
         <slot />
+        <SpeedInsights />
       </Body>
     </Html>
   </div>
