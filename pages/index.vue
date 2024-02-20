@@ -1,6 +1,6 @@
 <script setup>
 definePageMeta({
-  title: 'pages.title.top' // set resource key
+  title: 'pages.title.top'
 })
 
 const { locale, locales, t } = useI18n()
