@@ -6,6 +6,7 @@
     <v-row>
       <v-col>
         <personal-information-form />
+        <personal-additional-information-form />
       </v-col>
       <v-col>
         <resume-preview />

@@ -50,6 +50,17 @@ export default defineNuxtPlugin((app) => {
             themes: {
                 [VuetifyTheme.DEFAULT_THEME]: defaultTheme
             }
+        },
+        defaults: {
+            global: {
+                elevation: 0
+            },
+            VBtn: {
+                style: 'text-transform: none;',
+            },
+            VTextField: {
+                variant: 'filled'
+            }
         }
     })
     app.vueApp.use(vuetify)
