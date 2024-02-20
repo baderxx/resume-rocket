@@ -8,6 +8,7 @@ export default defineNuxtConfig({
     transpile: ['vuetify'],
   },
   modules: [
+    '@nuxt/image',
     [
       '@nuxtjs/sitemap',
       {
@@ -31,7 +32,8 @@ export default defineNuxtConfig({
     },
   ],
   routeRules: {
-    '/': { prerender: true }
+    // #TODO: add proper type here
+    ...(['/', '/builder'].map((routeItem) => ({[routeItem]: {prerender: true}})) as any)
   },
   typescript: {
     typeCheck: true,

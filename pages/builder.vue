@@ -2,9 +2,14 @@
 
 </script>
 <template>
-  <div>
-    <v-card>
-      <h1>Resume Builder</h1>
-    </v-card>
-  </div>
+  <v-container>
+    <v-row>
+      <v-col>
+        <personal-information-form />
+      </v-col>
+      <v-col>
+        <resume-preview />
+      </v-col>
+    </v-row>
+  </v-container>
 </template>
