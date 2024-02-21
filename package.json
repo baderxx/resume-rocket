@@ -21,6 +21,7 @@
     "@nuxt/eslint-config": "^0.2.0",
     "@nuxtjs/i18n": "^8.1.1",
     "@nuxtjs/sitemap": "^5.1.0",
+    "@paro-paro/vite-plugin-vuetify-sass": "^0.6.3",
     "eslint": "^8.56.0",
     "sass": "^1.71.0",
     "typescript": "^5.3.3",

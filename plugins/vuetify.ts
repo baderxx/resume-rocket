@@ -59,7 +59,7 @@ export default defineNuxtPlugin((app) => {
                 style: 'text-transform: none;',
             },
             VTextField: {
-                variant: 'filled'
+                // variant: 'filled'
             }
         }
     })

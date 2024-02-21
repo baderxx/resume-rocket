@@ -1,4 +1,6 @@
 import vuetify, { transformAssetUrls } from 'vite-plugin-vuetify'
+import vuetifySass from '@paro-paro/vite-plugin-vuetify-sass'
+
 import { RuntimeModes } from "./types/enums";
 import i18nConfig from "./config/i18n";
 
@@ -28,6 +30,9 @@ export default defineNuxtConfig({
       nuxt.hooks.hook('vite:extendConfig', (config) => {
         // @ts-expect-error
         config.plugins.push(vuetify({ autoImport: true }))
+        config.plugins?.push(vuetifySass({
+          configFile: 'assets/styles/variables.scss',
+        }),)
       })
     },
   ],

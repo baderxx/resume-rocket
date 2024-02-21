@@ -1,1 +1,5 @@
-$expansion-panel-text-padding: 0px,
+$bg: var(--bg);
+
+@use 'vuetify/settings' with (
+  $input-font-size: 10px
+);
