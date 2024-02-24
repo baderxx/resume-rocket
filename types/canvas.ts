@@ -1,65 +1,65 @@
 enum ElementTypes {
-    TEXT = 'text',
-    SHAPE = 'shape',
-    IMAGE = 'image',
-    VECTOR = 'vector'
+  TEXT = 'text',
+  SHAPE = 'shape',
+  IMAGE = 'image',
+  VECTOR = 'vector'
 }
 enum ElementAlignment {
-    START = 'start',
-    END = 'end',
-    CENTER = 'center'
+  START = 'start',
+  END = 'end',
+  CENTER = 'center'
 }
 
 type TextElementStyle = {
-    fontFamily: string
-    fontSize: string
-    color: string
+  fontFamily: string
+  fontSize: string
+  color: string
 }
 
 type ShapeElementStyle = {
-    fill: string
-    stroke?: string // optional
-    strokeWidth?: number // optional
+  fill: string
+  stroke?: string // optional
+  strokeWidth?: number // optional
 }
 
 type TextElementSchema = {
-    type: ElementTypes.TEXT
-    content: string
-    alignment: ElementAlignment
-    style: Partial<TextElementStyle>
+  type: ElementTypes.TEXT
+  content: string
+  alignment: ElementAlignment
+  style: Partial<TextElementStyle>
 }
 
 type ShapeElementSchema = {
-    type: ElementTypes.SHAPE
-    shapeType: 'rectangle' | 'circle'
-    x: number
-    y: number
-    width?: number // optional
-    height?: number // optional
-    radius?: number // optional
-    style: Partial<ShapeElementStyle>
+  type: ElementTypes.SHAPE
+  shapeType: 'rectangle' | 'circle'
+  x: number
+  y: number
+  width?: number // optional
+  height?: number // optional
+  radius?: number // optional
+  style: Partial<ShapeElementStyle>
 }
 
 type ImageElementStyle = {
-    width: number
-    height: number
+  width: number
+  height: number
 }
 
 type ImageElementSchema = {
-    type: ElementTypes.IMAGE
-    source: string
-    style: Partial<ImageElementStyle>
+  type: ElementTypes.IMAGE
+  source: string
+  style: Partial<ImageElementStyle>
 }
 
 type VectorElementStyle = {
-    stroke: string
-    strokeWidth: number
+  stroke: string
+  strokeWidth: number
 }
 
 type VectorElementSchema = {
-    type: ElementTypes.VECTOR
-    points: number[]
-    style: Partial<VectorElementStyle>
+  type: ElementTypes.VECTOR
+  points: number[]
+  style: Partial<VectorElementStyle>
 }
 
 // function renderTextElement(context: CanvasRenderingContext2D, textElement: TextElementSchema) {
