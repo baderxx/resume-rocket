@@ -18,7 +18,7 @@ const sectionSubtitle = computed(() => {
       :sub-title="sectionSubtitle"
     />
     <client-only>
-      <global-content-editor v-model="htmlContent" />
+      <content-editor v-model="htmlContent" />
     </client-only>
   </div>
 </template>
