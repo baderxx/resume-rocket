@@ -9,20 +9,24 @@ type ExperienceItems = {
 const experiences = ref([])
 const experienceItems: Ref<ExperienceItems[]> = ref([])
 
-const sectionTitle = computed(() => {
-  return 'Employment History'
-})
-
-const sectionSubtitle = computed(() => {
-  return 'Show your relevant experience (last 10 years). Use bullet points to note your achievements, if possible - use numbers/facts (Achieved X, measured by Y, by doing Z).'
-})
+// const sectionTitle = computed(() => {
+//   return 'Employment History'
+// })
+//
+// const sectionSubtitle = computed(() => {
+//   return 'Show your relevant experience (last 10 years). Use bullet points to note your achievements, if possible - use numbers/facts (Achieved X, measured by Y, by doing Z).'
+// })
 
 type SectionProps = {
   sectionTitle: string,
   sectionSubtitle: string,
   formTemplate: EditorFieldSchema[]
 }
-withDefaults(defineProps<SectionProps>(), {})
+withDefaults(defineProps<SectionProps>(), {
+  sectionTitle: '',
+  sectionSubtitle: '',
+  formTemplate: () => []
+})
 
 const experienceFormTemplate = computed<EditorFieldSchema[]>(() => {
   return [
