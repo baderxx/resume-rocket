@@ -47,7 +47,7 @@ const onAddNewSectionItem = async () => {
         <builder-section-header :title="sectionTitle" :sub-title="sectionSubtitle" :add-action-text="addActionText"
             @add="onAddNewSectionItem" />
 
-        <v-expansion-panels v-model="sectionTabs">
+        <!-- <v-expansion-panels v-model="sectionTabs">
             <v-expansion-panel v-for="(sectionItem, index) in sectionItems" :key="index">
                 <v-expansion-panel-title>
                     <div class="d-flex flex-column">
@@ -59,7 +59,7 @@ const onAddNewSectionItem = async () => {
                     <builder-section-form :fields="sectionItem.fields" v-model=resumeData[sectionDataKey][index] />
                 </v-expansion-panel-text>
             </v-expansion-panel>
-        </v-expansion-panels>
+        </v-expansion-panels> -->
     </div>
 </template>
 <style lang="scss" scoped>

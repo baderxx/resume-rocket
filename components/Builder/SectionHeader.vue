@@ -16,13 +16,14 @@ withDefaults(defineProps<SectionHeaderProps>(), {
 const emit = defineEmits(['add'])
 
 const onAddActionClick = () => {
-  emit('add')
+    emit('add')
 }
 </script>
 
 <template>
-  <div class="mb-4">
-    <v-row>
+    <div class="mb-4">
+        section header
+        <!-- <v-row>
       <v-col cols="9">
         <v-card-title class="ps-0 pb-0">
           {{ title }}
@@ -41,6 +42,6 @@ const onAddActionClick = () => {
           {{ addActionText }}
         </v-btn>
       </v-col>
-    </v-row>
-  </div>
+    </v-row> -->
+    </div>
 </template>

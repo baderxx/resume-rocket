@@ -2,7 +2,10 @@
 const panel: Ref<number[]> = ref([])
 </script>
 <template>
-    <v-expansion-panels v-model="panel">
+    <div>
+        additional details
+    </div>
+    <!-- <v-expansion-panels v-model="panel">
         <v-expansion-panel :static="true" color="primary">
             <v-expansion-panel-title>
                 <span class="font-weight-bold text-primary">Additional Information</span>
@@ -30,7 +33,7 @@ const panel: Ref<number[]> = ref([])
                 </v-row>
             </v-expansion-panel-text>
         </v-expansion-panel>
-    </v-expansion-panels>
+    </v-expansion-panels> -->
 </template>
 
 <style lang="scss" scoped>

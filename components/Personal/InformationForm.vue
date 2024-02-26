@@ -1,8 +1,9 @@
 <script lang="ts" setup>
-const title = ref('Personal Information form')
+const title = ref("Personal Information form");
 </script>
 <template>
-    <v-form>
+  <div>personal information form</div>
+  <!-- <v-form> 
         <v-row>
             <v-col cols="6">
                 <v-text-field label="Wanted job title" />
@@ -29,5 +30,5 @@ const title = ref('Personal Information form')
                 <v-text-field label="City" />
             </v-col>
         </v-row>
-    </v-form>
+    </v-form> -->
 </template>

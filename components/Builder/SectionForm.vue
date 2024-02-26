@@ -17,7 +17,10 @@ const onFieldBlur = () => emit('update:modelValue', formValues.value)
 
 </script>
 <template>
-    <v-row>
+    <div>
+        do something with tailwind
+    </div>
+    <!-- <v-row>
         <v-col v-for="(field, idx) in  fields  " :key="idx" :cols="field?.cols">
             <v-text-field v-if="field.type === EDITOR_FIELDS.TEXT" v-model.trim="formValues[field.fieldName]"
                 :label="field?.title" @blur="onFieldBlur" />
@@ -27,5 +30,5 @@ const onFieldBlur = () => emit('update:modelValue', formValues.value)
                 <content-editor v-model.trim="formValues[field.fieldName]" />
             </client-only>
         </v-col>
-    </v-row>
+    </v-row> -->
 </template>

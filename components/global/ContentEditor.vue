@@ -9,11 +9,11 @@ import Link from '@tiptap/extension-link'
 import { Editor, EditorContent } from '@tiptap/vue-3'
 
 type ContentEditorProps = {
-  modelValue: string
+    modelValue: string
 }
 
 const props = withDefaults(defineProps<ContentEditorProps>(), {
-  modelValue: ''
+    modelValue: ''
 })
 const emit = defineEmits(['update:modelValue'])
 
@@ -23,105 +23,106 @@ const editor: Ref<Editor | undefined> = ref()
 
 const registerEditor = () => {
     editor.value = new Editor({
-      extensions: [StarterKit, Underline, BulletList, ListItem, OrderedList, Link.configure({
-        openOnClick: false,
-      })],
-      content: props.modelValue,
-      onUpdate: () => {
-          emit('update:modelValue', editor.value?.getHTML())
-      },
+        extensions: [StarterKit, Underline, BulletList, ListItem, OrderedList, Link.configure({
+            openOnClick: false,
+        })],
+        content: props.modelValue,
+        onUpdate: () => {
+            emit('update:modelValue', editor.value?.getHTML())
+        },
     })
 }
 
 const onToggleBold = () => {
-  if(!editor.value) return
-  editor.value.chain().focus().toggleBold().run()
+    if (!editor.value) return
+    editor.value.chain().focus().toggleBold().run()
 }
 
 const onToggleItalic = () => {
-  if(!editor.value) return
-  editor.value.chain().focus().toggleItalic().run()
+    if (!editor.value) return
+    editor.value.chain().focus().toggleItalic().run()
 }
 
 const onToggleStrike = () => {
-  if(!editor.value) return
-  editor.value.chain().focus().toggleStrike().run()
+    if (!editor.value) return
+    editor.value.chain().focus().toggleStrike().run()
 }
 
 const onToggleUnderline = () => {
-  if(!editor.value) return
-  editor.value.chain().focus().toggleUnderline().run()
+    if (!editor.value) return
+    editor.value.chain().focus().toggleUnderline().run()
 }
 
 const onToggleBulletList = () => {
-  if(!editor.value) return
-  editor.value.chain().focus().toggleBulletList().run()
+    if (!editor.value) return
+    editor.value.chain().focus().toggleBulletList().run()
 }
 
 const onToggleOrderedList = () => {
-  if(!editor.value) return
-  editor.value.chain().focus().toggleOrderedList().run()
+    if (!editor.value) return
+    editor.value.chain().focus().toggleOrderedList().run()
 }
 
 const onToggleLink = () => {
-  if(!editor.value) return
+    if (!editor.value) return
 
-  const previousLink = editor.value.getAttributes('link').href
-  // #TODO: implement a link modal
-  // #TODO: fix behavior for active link
+    const previousLink = editor.value.getAttributes('link').href
+    // #TODO: implement a link modal
+    // #TODO: fix behavior for active link
 
-  const url: string | null = window.prompt('URL', previousLink)
-  if (url === null) {
-    return
-  }
+    const url: string | null = window.prompt('URL', previousLink)
+    if (url === null) {
+        return
+    }
 
-  if (url === '') {
+    if (url === '') {
+        editor.value
+            .chain()
+            .focus()
+            .extendMarkRange('link')
+            .unsetLink()
+            .run()
+
+        return
+    }
+
     editor.value
         .chain()
         .focus()
         .extendMarkRange('link')
-        .unsetLink()
+        .setLink({ href: url })
         .run()
-
-    return
-  }
-
-  editor.value
-      .chain()
-      .focus()
-      .extendMarkRange('link')
-      .setLink({ href: url })
-      .run()
 
 }
 
 // Computed
 const isFormatToggled = computed(() => (format: string) => {
-  return editor.value?.isActive(format)
+    return editor.value?.isActive(format)
 })
 
 
 watch(() => props.modelValue, (newValue) => {
-  if(!editor.value) return
+    if (!editor.value) return
 
-  const isSameValue = editor.value.getHTML() === newValue
-  if(isSameValue) return
+    const isSameValue = editor.value.getHTML() === newValue
+    if (isSameValue) return
 
-  editor.value.commands.setContent(newValue, false)
+    editor.value.commands.setContent(newValue, false)
 })
 
 onMounted(() => {
-  registerEditor()
+    registerEditor()
 })
 
 onBeforeUnmount(() => {
-  editor.value!.destroy()
+    editor.value!.destroy()
 })
 </script>
 <template>
-  <div class="editor">
-    <div class="d-flex">
-      <v-icon
+    <div class="editor">
+        <div class="d-flex">
+            toolbar
+            <!-- <v-icon
         icon="mdi-format-bold"
         :class="{'is-active': isFormatToggled('bold')}"
         @click="onToggleBold"
@@ -163,41 +164,41 @@ onBeforeUnmount(() => {
         icon="mdi-link"
         :class="{'is-active': isFormatToggled('link')}"
         @click="onToggleLink"
-      />
+      /> -->
+        </div>
+        <editor-content :editor="editor" />
     </div>
-    <editor-content :editor="editor" />
-  </div>
 </template>
 
 <style lang="scss" scoped>
 .editor {
-  width: 100%;
-  height: 180px;
-  padding: 10px;
-  border-radius: 4px;
-  background: rgb(239, 242, 249);
-
-  .is-active {
-    background: #e0e0e0;
-    border-radius: 2px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    text-align: center;
-  }
-
-  :deep(.tiptap) {
     width: 100%;
-    height: 145px;
-    font-size: 14px;
-    margin: 0 !important;
-    box-sizing: content-box;
-    border: unset;
-    padding: 5px;
+    height: 180px;
+    padding: 10px;
+    border-radius: 4px;
+    background: rgb(239, 242, 249);
 
-    &:focus-within {
-      outline: none;
+    .is-active {
+        background: #e0e0e0;
+        border-radius: 2px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
     }
-  }
+
+    :deep(.tiptap) {
+        width: 100%;
+        height: 145px;
+        font-size: 14px;
+        margin: 0 !important;
+        box-sizing: content-box;
+        border: unset;
+        padding: 5px;
+
+        &:focus-within {
+            outline: none;
+        }
+    }
 }
 </style>
