@@ -83,29 +83,24 @@ const experienceFormTemplate = computed<EditorFieldSchema[]>(() => {
 });
 </script>
 <template>
-  <div>
-    <!-- <v-container> -->
-    <!-- <v-row>
-            <v-col cols="6"> -->
-    <h1 class="text-3xl font-bold underline">Hello world!</h1>
-    <personal-information-form />
-    <personal-additional-information-form />
-    <builder-professional-summary />
-    <builder-section
-      v-for="(section, idx) in builderSections"
-      :key="idx"
-      :section-title="section.title"
-      :item-title-template="section.itemTitleTemplate"
-      :section-subtitle="section.subtitle"
-      :form-template="section.formTemplate"
-      :add-action-text="section.addActionText"
-      :section-data-key="section.dataKey"
-    />
-    <!-- </v-col>
-            <v-col cols="6"> -->
-    <resume-preview />
-    <!-- </v-col>
-        </v-row>
-    </v-container> -->
+  <div class="grid grid-flow-col grid-cols-2 grid-rows-1 gap-4">
+    <div class="h-screen overflow-y-scroll py-8">
+      <personal-information-form />
+      <personal-additional-information-form />
+      <builder-professional-summary />
+      <builder-section
+        v-for="(section, idx) in builderSections"
+        :key="idx"
+        :section-title="section.title"
+        :item-title-template="section.itemTitleTemplate"
+        :section-subtitle="section.subtitle"
+        :form-template="section.formTemplate"
+        :add-action-text="section.addActionText"
+        :section-data-key="section.dataKey"
+      />
+    </div>
+    <div class="bg-black">
+      <resume-preview />
+    </div>
   </div>
 </template>

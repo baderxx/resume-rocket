@@ -2,33 +2,34 @@
 const title = ref("Personal Information form");
 </script>
 <template>
-  <div>personal information form</div>
-  <!-- <v-form> 
-        <v-row>
-            <v-col cols="6">
-                <v-text-field label="Wanted job title" />
-            </v-col>
-            <v-col cols="6">
-                <nuxt-img src="https://placehold.co/80x80" />
-            </v-col>
-            <v-col cols="6">
-                <v-text-field label="First name" />
-            </v-col>
-            <v-col cols="6">
-                <v-text-field label="Last name" />
-            </v-col>
-            <v-col cols="6">
-                <v-text-field label="Email" />
-            </v-col>
-            <v-col cols="6">
-                <v-text-field label="Phone number" />
-            </v-col>
-            <v-col cols="6">
-                <v-text-field label="Country" />
-            </v-col>
-            <v-col cols="6">
-                <v-text-field label="City" />
-            </v-col>
-        </v-row>
-    </v-form> -->
+  <h3 class="text-xl">{{ title }}</h3>
+  <div class="mt-3 grid grid-cols-2 gap-x-6 gap-y-2">
+    <div class="col-span-2">
+      <form-text-field
+        label="Wanted job title"
+        placeholder="Enter your wanted job title"
+      />
+    </div>
+    <div>
+      <form-text-field label="First name" placeholder="Enter your first name" />
+    </div>
+    <div>
+      <form-text-field label="Last name" placeholder="Enter your last name" />
+    </div>
+    <div>
+      <form-text-field label="Email" placeholder="Enter your email" />
+    </div>
+    <div>
+      <form-text-field
+        label="Phone number"
+        placeholder="Enter your phone number"
+      />
+    </div>
+    <div>
+      <form-text-field label="Country" placeholder="Enter your country" />
+    </div>
+    <div>
+      <form-text-field label="City" placeholder="Enter your city" />
+    </div>
+  </div>
 </template>

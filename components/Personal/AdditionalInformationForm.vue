@@ -1,11 +1,9 @@
 <script setup lang="ts">
-const panel: Ref<number[]> = ref([])
+const panel: Ref<number[]> = ref([]);
 </script>
 <template>
-    <div>
-        additional details
-    </div>
-    <!-- <v-expansion-panels v-model="panel">
+  <div>asdas</div>
+  <!-- <v-expansion-panels v-model="panel">
         <v-expansion-panel :static="true" color="primary">
             <v-expansion-panel-title>
                 <span class="font-weight-bold text-primary">Additional Information</span>
@@ -38,26 +36,26 @@ const panel: Ref<number[]> = ref([])
 
 <style lang="scss" scoped>
 :deep(.v-expansion-panel) {
-    .v-expansion-panel-title {
-        min-height: unset !important;
-        padding-left: unset !important;
-        padding-right: unset !important;
-        padding-bottom: 10px;
-        width: unset;
+  .v-expansion-panel-title {
+    min-height: unset !important;
+    padding-left: unset !important;
+    padding-right: unset !important;
+    padding-bottom: 10px;
+    width: unset;
 
-        &__overlay {
-            opacity: 0 !important;
-        }
-
-        &__icon {
-            margin-top: 1px;
-        }
+    &__overlay {
+      opacity: 0 !important;
     }
 
-    .v-expansion-panel-text {
-        &__wrapper {
-            padding: 1rem 0;
-        }
+    &__icon {
+      margin-top: 1px;
     }
+  }
+
+  .v-expansion-panel-text {
+    &__wrapper {
+      padding: 1rem 0;
+    }
+  }
 }
 </style>

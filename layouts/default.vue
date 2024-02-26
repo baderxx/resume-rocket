@@ -30,12 +30,9 @@ const title = computed(() =>
     </Head>
 
     <Body>
-      <!-- <v-app id="inspire">
-        <v-main> -->
-      <slot />
-      <!-- </v-main>
-      </v-app> -->
-
+      <div class="container mx-auto">
+        <slot />
+      </div>
       <SpeedInsights />
     </Body>
   </Html>
