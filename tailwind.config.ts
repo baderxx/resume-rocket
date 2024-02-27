@@ -11,6 +11,9 @@ export default {
   ],
   theme: {
     extend: {
+      transitionProperty: {
+        "max-height": "max-height",
+      },
       colors: {
         primary: "#e2e8f0",
         "primary-highlight": "#000",

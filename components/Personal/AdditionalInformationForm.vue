@@ -1,37 +1,52 @@
-<script setup lang="ts">
-const panel: Ref<number[]> = ref([]);
-</script>
+<script setup lang="ts"></script>
 <template>
-  <div>asdas</div>
-  <!-- <v-expansion-panels v-model="panel">
-        <v-expansion-panel :static="true" color="primary">
-            <v-expansion-panel-title>
-                <span class="font-weight-bold text-primary">Additional Information</span>
-            </v-expansion-panel-title>
-            <v-expansion-panel-text>
-                <v-row>
-                    <v-col cols="6">
-                        <v-text-field label="Address" variant="filled" />
-                    </v-col>
-                    <v-col cols="6">
-                        <v-text-field label="Postal code" variant="filled" />
-                    </v-col>
-                    <v-col cols="6">
-                        <v-text-field label="Driving license" variant="filled" />
-                    </v-col>
-                    <v-col cols="6">
-                        <v-text-field label="Nationality" variant="filled" />
-                    </v-col>
-                    <v-col cols="6">
-                        <v-text-field label="Place of birth" variant="filled" />
-                    </v-col>
-                    <v-col cols="6">
-                        <v-text-field label="Date of birth" variant="filled" />
-                    </v-col>
-                </v-row>
-            </v-expansion-panel-text>
-        </v-expansion-panel>
-    </v-expansion-panels> -->
+  <div>
+    <expansion-panel>
+      <template #content>
+        <div class="mt-3 grid grid-cols-2 gap-x-6 gap-y-2">
+          <div>
+            <form-text-field label="Address" placeholder="Enter your address" />
+          </div>
+          <div>
+            <form-text-field
+              label="Postal code"
+              placeholder="Enter your postal code"
+            />
+          </div>
+          <div>
+            <form-text-field
+              label="Driving license"
+              placeholder="Enter your driving license"
+            />
+          </div>
+          <div>
+            <form-text-field
+              label="Nationality"
+              placeholder="Enter your nationality"
+            />
+          </div>
+          <div>
+            <form-text-field
+              label="Place of birth"
+              placeholder="Enter your place of birth"
+            />
+          </div>
+          <div>
+            <form-text-field
+              label="Address"
+              placeholder="Enter your date of birth"
+            />
+          </div>
+        </div>
+      </template>
+      <template #activator="{ click, isOpen }">
+        <text-button class="mt-4" @click="click">
+          <!-- #TODO: add icon -->
+          <span>Additional Information</span>
+        </text-button>
+      </template>
+    </expansion-panel>
+  </div>
 </template>
 
 <style lang="scss" scoped>

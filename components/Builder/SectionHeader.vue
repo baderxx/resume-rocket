@@ -1,47 +1,20 @@
-<script lang='ts' setup>
+<script lang="ts" setup>
 type SectionHeaderProps = {
-    title: string
-    subTitle: string
-    addActionText: string
-    isAddActionDisabled?: boolean
-}
+  title: string;
+  subTitle: string;
+};
 
-withDefaults(defineProps<SectionHeaderProps>(), {
-    title: '',
-    subTitle: '',
-    addActionText: '',
-    isAddActionDisabled: false
-})
-
-const emit = defineEmits(['add'])
-
-const onAddActionClick = () => {
-    emit('add')
-}
+withDefaults(defineProps<Partial<SectionHeaderProps>>(), {
+  title: "",
+  subTitle: "",
+});
 </script>
 
 <template>
-    <div class="mb-4">
-        section header
-        <!-- <v-row>
-      <v-col cols="9">
-        <v-card-title class="ps-0 pb-0">
-          {{ title }}
-        </v-card-title>
-        <v-card-subtitle class="ps-0 pt-0">
-          {{ subTitle }}
-        </v-card-subtitle>
-      </v-col>
-      <v-col class="d-flex align-center">
-        <v-btn
-          v-if="addActionText"
-          :disabled="isAddActionDisabled"
-          variant="text"
-          @click="onAddActionClick"
-        >
-          {{ addActionText }}
-        </v-btn>
-      </v-col>
-    </v-row> -->
+  <div class="grid grid-cols-1">
+    <div>
+      <p class="mb-2 text-xl">{{ title }}</p>
+      <p class="mb-2 text-sm font-thin">{{ subTitle }}</p>
     </div>
+  </div>
 </template>

@@ -1,29 +1,25 @@
-<script lang="ts" setup></script>
+<script lang="ts" setup>
+// #TODO: need to fix the transition animation
+const isPanelOpen = ref(false);
+
+const onClick = () => {
+  isPanelOpen.value = !isPanelOpen.value;
+};
+</script>
 <template>
   <div class="relative mb-3">
-    <h6 class="mb-0">
-      <button
-        class="rounded-t-1 text-dark-500 group relative flex w-full cursor-pointer items-center border-b border-solid border-slate-100 p-4 text-left font-semibold text-slate-700 transition-all ease-in"
-        data-collapse-target="collapse-1"
-      >
-        <span>What is Material Tailwind?</span>
-        <i
-          class="fa fa-plus absolute right-0 pt-1 text-xs group-open:opacity-0"
-        ></i>
-        <i
-          class="fa fa-minus absolute right-0 pt-1 text-xs opacity-0 group-open:opacity-100"
-        ></i>
-      </button>
-    </h6>
-    <div
-      data-collapse="collapse-1"
-      class="h-100 overflow-hidden transition-all duration-300 ease-in-out"
-    >
-      <div class="text-blue-gray-500/80 p-4 text-sm leading-normal">
-        We're not always in the position that we want to be at. We're constantly
-        growing. We're constantly making mistakes. We're constantly trying to
-        express ourselves and actualize our dreams.
+    <template v-for="slot in Object.keys($slots)">
+      <div v-if="slot === 'activator'" :key="slot">
+        <slot name="activator" :click="onClick" :is-open="isPanelOpen"></slot>
       </div>
-    </div>
+      <div
+        v-if="slot === 'content'"
+        :key="slot"
+        :class="isPanelOpen ? 'h-100' : 'h-0'"
+        class="overflow-hidden transition-[height] duration-300 ease-in-out"
+      >
+        <slot name="content"></slot>
+      </div>
+    </template>
   </div>
 </template>

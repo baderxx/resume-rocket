@@ -25,7 +25,7 @@ const experienceSection = computed<Section>(() => ({
 }));
 
 const educationSection = computed<Section>(() => ({
-  title: sectionTitle.value,
+  title: "Education",
   subtitle: sectionSubtitle.value,
   formTemplate: experienceFormTemplate.value, // #TODO: Add inline schema for section
   type: "some type", // #TODO: figure this out
@@ -99,7 +99,7 @@ const experienceFormTemplate = computed<EditorFieldSchema[]>(() => {
         :section-data-key="section.dataKey"
       />
     </div>
-    <div class="bg-black">
+    <div class="bg-[#656e83]">
       <resume-preview />
     </div>
   </div>

@@ -3,15 +3,17 @@ type TextFieldProps = {
   modelValue: string;
   label: string;
   placeholder: string;
-  name: string;
+  name?: string;
 };
 
-withDefaults(defineProps<TextFieldProps>(), {
+withDefaults(defineProps<Partial<TextFieldProps>>(), {
   modelValue: "",
   label: "label",
   placeholder: "placeholder",
   name: "",
 });
+
+const emit = defineEmits(["update:modelValue", "blur"]);
 
 const isError = ref(false);
 </script>
@@ -22,6 +24,7 @@ const isError = ref(false);
     >{{ label }}</label
   >
   <input
+    :value="modelValue"
     type="text"
     :placeholder="placeholder"
     class="mt-1 min-h-12 w-full rounded bg-[#eff2f9] p-2 focus:rounded-b-none focus:border-b-2 focus:outline-none"
@@ -30,6 +33,8 @@ const isError = ref(false);
         ? 'rounded-b-none border-b-2 border-red-500'
         : 'focus:border-blue-600'
     "
+    @input="emit('update:modelValue', ($event.target as any).value)"
+    @blur="emit('blur')"
   />
   <p v-if="isError" class="mt-1 text-xs text-red-500">
     {{ label }} is required and cannot be empty
