@@ -1,5 +1,6 @@
 import type { EditorFieldSchema, Section } from "@/types/builder";
 import { EDITOR_FIELDS } from "@/types/builder";
+import { SectionTypes } from "@/types/enums";
 
 export const useUseBuilderFormTemplates = () => {
   const sectionTitle = computed(() => {
@@ -337,7 +338,7 @@ export const useUseBuilderFormTemplates = () => {
     subtitle:
       "List your core competencies and technical proficiencies relevant to your field. Include both hard skills (e.g., software proficiency, data analysis) and soft skills (e.g., communication, leadership). Tailor this section to highlight skills that align with the job you're applying for, emphasizing those most valued by potential employers.",
     formTemplate: skillsFormTemplate.value, // #TODO: Add inline schema for section
-    type: "some type", // #TODO: figure this out
+    type: SectionTypes.SKILLS, // #TODO: figure this out
     addActionText: "Add one more skill",
     dataKey: "skills",
     itemTitleTemplate: [{ fieldName: "label" }],

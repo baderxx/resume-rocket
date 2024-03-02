@@ -9,6 +9,7 @@ import {
   faListDots,
   faListNumeric,
   faPencil,
+  faPlus,
   faStrikethrough,
   faUnderline,
 } from "@fortawesome/free-solid-svg-icons";
@@ -23,6 +24,7 @@ library.add(
   faLink,
   faBorderNone,
   faPencil,
+  faPlus,
 );
 
 config.autoAddCss = false;

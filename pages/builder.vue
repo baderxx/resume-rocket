@@ -13,6 +13,7 @@ const { builderSections } = useUseBuilderFormTemplates();
         v-for="(section, idx) in builderSections"
         :key="idx"
         v-model:section-title="section.title"
+        :section-type="section.type"
         :item-title-template="section.itemTitleTemplate"
         :section-subtitle="section.subtitle"
         :form-template="section.formTemplate"

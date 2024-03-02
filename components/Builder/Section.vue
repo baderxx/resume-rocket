@@ -4,6 +4,7 @@ import type {
   EditorFieldSchema,
   SectionItemTitleTemplate,
 } from "@/types/builder";
+import { SectionTypes } from "~/types/enums";
 const { resumeData } = useResumeInformation();
 
 type SectionItems = {
@@ -17,6 +18,7 @@ type SectionProps = {
   sectionSubtitle: string;
   addActionText: string;
   sectionDataKey: string;
+  sectionType?: string;
   itemTitleTemplate: SectionItemTitleTemplate[];
   formTemplate: EditorFieldSchema[];
 };
@@ -25,6 +27,7 @@ const props = withDefaults(defineProps<Partial<SectionProps>>(), {
   sectionSubtitle: "",
   addActionText: "",
   sectionDataKey: "",
+  sectionType: "section",
   itemTitleTemplate: () => [],
   formTemplate: () => [],
 });
@@ -56,6 +59,25 @@ const onAddNewSectionItem = async () => {
       v-model:title="sectionTitle"
       :sub-title="sectionSubtitle"
     />
+
+    <!--  #TODO: move this to a component and get the skill data from api -->
+    <div v-if="sectionType === SectionTypes.SKILLS" class="mt-4">
+      <button
+        v-for="(skill, idx) in [
+          'Java',
+          'JavaScript',
+          'Vue.js',
+          'React.js',
+          'Nuxt.js',
+          'Next.js',
+        ]"
+        :key="idx"
+        class="mb-3 me-2 rounded bg-[#eff2f9] px-3.5 py-1 hover:bg-[#eaf6ff] hover:text-[#1a91f0]"
+      >
+        <span class="text-base">{{ skill }}</span>
+        <font-awesome-icon class="ml-1.5" :icon="['fas', 'plus']" />
+      </button>
+    </div>
     <expansion-panel
       v-for="(sectionItem, index) in sectionItems"
       :key="index"
