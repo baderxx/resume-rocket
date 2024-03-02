@@ -60,11 +60,11 @@ const onAddNewSectionItem = async () => {
     <expansion-panel
       v-for="(sectionItem, index) in sectionItems"
       :key="index"
-      class="rounded border px-5 py-3.5"
+      class="mt-3 rounded border px-5 py-3.5"
     >
       <template #activator="{ click }">
-        <div class="grid grid-rows-2" role="button" @click="click">
-          <span class="text-sm font-bold">{{
+        <div class="group grid grid-rows-2" role="button" @click="click">
+          <span class="text-sm font-bold group-hover:text-[#1a91f0]">{{
             getCompiledSectionTitle(index)
           }}</span>
           <span class="mt-1 text-sm font-thin">Oct 2020 - Present</span>

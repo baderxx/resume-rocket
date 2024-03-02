@@ -1,39 +1,51 @@
-<script setup lang="ts"></script>
+<script setup lang="ts">
+import { useResumeInformation } from "@/composables/useResumeInformation";
+const { resumeData } = useResumeInformation();
+</script>
 <template>
   <div>
     <expansion-panel>
       <template #content>
         <div class="mt-3 grid grid-cols-2 gap-x-6 gap-y-2">
           <div>
-            <form-text-field label="Address" placeholder="Enter your address" />
+            <form-text-field
+              v-model="resumeData.address"
+              label="Address"
+              placeholder="Enter your address"
+            />
           </div>
           <div>
             <form-text-field
+              v-model="resumeData.postalCode"
               label="Postal code"
               placeholder="Enter your postal code"
             />
           </div>
           <div>
             <form-text-field
+              v-model="resumeData.drivingLicense"
               label="Driving license"
               placeholder="Enter your driving license"
             />
           </div>
           <div>
             <form-text-field
+              v-model="resumeData.nationality"
               label="Nationality"
               placeholder="Enter your nationality"
             />
           </div>
           <div>
             <form-text-field
+              v-model="resumeData.placeOfBirth"
               label="Place of birth"
               placeholder="Enter your place of birth"
             />
           </div>
           <div>
             <form-text-field
-              label="Address"
+              v-model="resumeData.dateOfBirth"
+              label="Date of birth"
               placeholder="Enter your date of birth"
             />
           </div>

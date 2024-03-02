@@ -27,14 +27,14 @@ const experienceSection = computed<Section>(() => ({
 const educationSection = computed<Section>(() => ({
   title: "Education",
   subtitle: sectionSubtitle.value,
-  formTemplate: experienceFormTemplate.value, // #TODO: Add inline schema for section
+  formTemplate: educationFormTemplate.value, // #TODO: Add inline schema for section
   type: "some type", // #TODO: figure this out
   addActionText: "Add one or more experience items",
   dataKey: "education",
   itemTitleTemplate: [
-    { fieldName: "jobTitle" },
+    { fieldName: "school" },
     { text: "at" },
-    { fieldName: "employer" },
+    { fieldName: "degree" },
   ],
 }));
 
@@ -81,10 +81,50 @@ const experienceFormTemplate = computed<EditorFieldSchema[]>(() => {
     },
   ];
 });
+
+const educationFormTemplate = computed<EditorFieldSchema[]>(() => {
+  return [
+    {
+      title: "School",
+      type: EDITOR_FIELDS.TEXT,
+      value: "",
+      fieldName: "school",
+      cols: 6,
+    },
+    {
+      title: "Degree",
+      type: EDITOR_FIELDS.TEXT,
+      value: "",
+      fieldName: "degree",
+      cols: 6,
+    },
+    {
+      title: "Start & End Date",
+      type: EDITOR_FIELDS.START_AND_END_DATE,
+      value: "",
+      fieldName: "startAndEndDate",
+      cols: 6,
+    },
+    {
+      title: "City",
+      type: EDITOR_FIELDS.TEXT,
+      value: "",
+      fieldName: "city",
+      cols: 6,
+    },
+    {
+      title: "Description",
+      type: EDITOR_FIELDS.EDITOR,
+      value: "",
+      fieldName: "description",
+      cols: 12,
+    },
+  ];
+});
 </script>
 <template>
-  <div class="grid grid-flow-col grid-cols-2 grid-rows-1 gap-4">
-    <div class="h-screen overflow-y-scroll py-8">
+  <div class="grid w-lvw grid-flow-col grid-cols-2 grid-rows-1 gap-4">
+    <div class="h-screen overflow-y-scroll p-16">
       <personal-information-form />
       <personal-additional-information-form />
       <builder-professional-summary />

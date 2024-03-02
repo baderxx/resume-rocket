@@ -34,7 +34,7 @@ const isError = ref(false);
         : 'focus:border-blue-600'
     "
     @input="emit('update:modelValue', ($event.target as any).value)"
-    @blur="emit('blur')"
+    @blur.prevent="emit('blur')"
   />
   <p v-if="isError" class="mt-1 text-xs text-red-500">
     {{ label }} is required and cannot be empty

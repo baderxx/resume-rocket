@@ -6,7 +6,10 @@ export default defineNuxtConfig({
     enabled: process.env.NODE_ENVIRONMENT === RuntimeModes.DEVELOPMENT,
   },
   build: {},
-  css: ["@/assets/css/main.css"],
+  css: [
+    "@/assets/css/main.css",
+    "@fortawesome/fontawesome-svg-core/styles.css",
+  ],
   postcss: {
     plugins: {
       tailwindcss: { config: "./tailwind.config.ts" },

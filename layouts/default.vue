@@ -30,9 +30,8 @@ const title = computed(() =>
     </Head>
 
     <Body>
-      <div class="container mx-auto">
-        <slot />
-      </div>
+      <slot />
+
       <SpeedInsights />
     </Body>
   </Html>

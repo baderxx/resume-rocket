@@ -1,3 +1,9 @@
 {
+  "rules": {
+    "trailingComma": "all",
+    "semi": false,
+    "singleQuote": true,
+    "tabWdidth": 2
+  },
   "plugins": ["prettier-plugin-tailwindcss"]
 }

@@ -3,6 +3,7 @@ type DeepPartial<T> = {
 };
 
 const resumeInformationSchema = {
+  jobTitle: "",
   firstName: "",
   lastName: "",
   email: "",
