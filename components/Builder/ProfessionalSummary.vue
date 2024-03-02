@@ -6,7 +6,7 @@ const sectionTitle = computed(() => {
 });
 
 const sectionSubtitle = computed(() => {
-  return "Write 2-4 short & energetic sentences to interest the reader! Mention your role, experience & most importantly - your biggest achievements, best qualities and skills.\n";
+  return "Write 2-4 short & energetic sentences to interest the reader! Mention your role, experience & most importantly - your biggest achievements, best qualities and skills.";
 });
 </script>
 

@@ -297,7 +297,8 @@ export const useUseBuilderFormTemplates = () => {
 
   const educationSection = computed<Section>(() => ({
     title: "Education",
-    subtitle: sectionSubtitle.value,
+    subtitle:
+      "Highlight your academic background, including your degree, the institution you attended, and relevant coursework. If you achieved any honors or distinctions, mention them here as well. This section provides insight into your foundational knowledge and expertise in your field of study.",
     formTemplate: educationFormTemplate.value, // #TODO: Add inline schema for section
     type: "some type", // #TODO: figure this out
     addActionText: "Add one or more experience items",
@@ -311,7 +312,8 @@ export const useUseBuilderFormTemplates = () => {
 
   const projectSection = computed<Section>(() => ({
     title: "Projects",
-    subtitle: sectionSubtitle.value,
+    subtitle:
+      "Detail any significant projects you've worked on, whether academic or professional. Describe the objectives of each project, your role and contributions, methodologies used, and the outcomes achieved. Emphasize any unique challenges overcome or innovative solutions implemented. This section demonstrates your practical skills and ability to apply theoretical knowledge to real-world scenarios.",
     formTemplate: projectsFormTemplate.value, // #TODO: Add inline schema for section
     type: "some type", // #TODO: figure this out
     addActionText: "Add one or more project items",
@@ -321,7 +323,8 @@ export const useUseBuilderFormTemplates = () => {
 
   const websiteAndSocialLinksSection = computed<Section>(() => ({
     title: "Website and social links",
-    subtitle: sectionSubtitle.value,
+    subtitle:
+      "Provide links to your personal website and professional social media profiles, such as LinkedIn, Twitter, Instagram, or Facebook. These platforms showcase your portfolio, work samples, professional achievements, and industry engagement. They also serve as networking tools for potential employers or collaborators to learn more about you and your expertise.",
     formTemplate: WebsiteAndSocialLinksFormTemplate.value, // #TODO: Add inline schema for section
     type: "some type", // #TODO: figure this out
     addActionText: "Add one more link",
@@ -331,7 +334,8 @@ export const useUseBuilderFormTemplates = () => {
 
   const skillsSection = computed<Section>(() => ({
     title: "Skills",
-    subtitle: sectionSubtitle.value,
+    subtitle:
+      "List your core competencies and technical proficiencies relevant to your field. Include both hard skills (e.g., software proficiency, data analysis) and soft skills (e.g., communication, leadership). Tailor this section to highlight skills that align with the job you're applying for, emphasizing those most valued by potential employers.",
     formTemplate: skillsFormTemplate.value, // #TODO: Add inline schema for section
     type: "some type", // #TODO: figure this out
     addActionText: "Add one more skill",
@@ -341,7 +345,8 @@ export const useUseBuilderFormTemplates = () => {
 
   const languaeSection = computed<Section>(() => ({
     title: "Languages",
-    subtitle: sectionSubtitle.value,
+    subtitle:
+      "Indicate your proficiency in languages other than your native tongue. Specify your level of fluency (e.g., fluent, proficient, basic) for each language listed. This section demonstrates your cultural awareness, communication abilities, and potential to work in diverse environments.",
     formTemplate: LanguagesFormTemplate.value, // #TODO: Add inline schema for section
     type: "some type", // #TODO: figure this out
     addActionText: "Add one more language",
@@ -351,7 +356,8 @@ export const useUseBuilderFormTemplates = () => {
 
   const internshipSection = computed<Section>(() => ({
     title: "Internships",
-    subtitle: sectionSubtitle.value,
+    subtitle:
+      "Detail any relevant internships or work experiences you've completed, including the organization, duration, and your responsibilities. Highlight key projects or achievements during your internship and quantify results whenever possible. This section illustrates your practical experience, professional growth, and readiness for entry-level positions in your field.",
     formTemplate: experienceFormTemplate.value, // #TODO: Add inline schema for section
     type: "some type", // #TODO: figure this out
     addActionText: "Add one more internship",
@@ -365,7 +371,8 @@ export const useUseBuilderFormTemplates = () => {
 
   const courcesSection = computed<Section>(() => ({
     title: "Cources",
-    subtitle: sectionSubtitle.value,
+    subtitle:
+      "List any additional courses, workshops, or certifications you've completed to enhance your skills or knowledge base. Include the institution or platform where you completed each course and any notable achievements or learning outcomes. This section showcases your commitment to continuous learning and professional development.",
     formTemplate: CourcesFormTemplate.value, // #TODO: Add inline schema for section
     type: "some type", // #TODO: figure this out
     addActionText: "Add one more cource",
@@ -375,7 +382,8 @@ export const useUseBuilderFormTemplates = () => {
 
   const hobbiesSection = computed<Section>(() => ({
     title: "Hobbies",
-    subtitle: sectionSubtitle.value,
+    subtitle:
+      "Share your interests and extracurricular activities outside of work or academics. Briefly describe each hobby and how it contributes to your personal growth, creativity, or well-being. While not directly related to your professional qualifications, this section provides insight into your personality, interests, and potential cultural fit within an organization.",
     formTemplate: hobbiesFormTemplate.value, // #TODO: Add inline schema for section
     type: "some type", // #TODO: figure this out
     addActionText: "Add one more hobby",
@@ -385,7 +393,8 @@ export const useUseBuilderFormTemplates = () => {
 
   const extraCurricularActivitiesSection = computed<Section>(() => ({
     title: "Extra-curricular Activities",
-    subtitle: sectionSubtitle.value,
+    subtitle:
+      "Highlight your involvement in volunteer work, clubs, associations, or community initiatives. Describe your role, contributions, and any leadership positions held. Showcase how your extracurricular activities have developed skills such as teamwork, leadership, and communication. This section demonstrates your commitment to community engagement, leadership potential, and well-roundedness.",
     formTemplate: extraCurricularActivitiesFormTemplate.value, // #TODO: Add inline schema for section
     type: "some type", // #TODO: figure this out
     addActionText: "Add one more activity",
@@ -395,7 +404,8 @@ export const useUseBuilderFormTemplates = () => {
 
   const referencesSection = computed<Section>(() => ({
     title: "References",
-    subtitle: sectionSubtitle.value,
+    subtitle:
+      "Indicate that references are available upon request. Avoid listing specific references unless requested by the employer. Ensure you have obtained permission from your references before providing their contact information. This section signals your readiness to provide credible testimonials from past employers, supervisors, or mentors when needed.",
     formTemplate: referenceFormTemplate.value, // #TODO: Add inline schema for section
     type: "some type", // #TODO: figure this out
     addActionText: "Add one more reference",
