@@ -1,9 +1,9 @@
 <script setup lang="ts">
+import { useResumeInformation } from "@/composables/useResumeInformation";
 import type {
   EditorFieldSchema,
   SectionItemTitleTemplate,
 } from "@/types/builder";
-import { useResumeInformation } from "@/composables/useResumeInformation";
 const { resumeData } = useResumeInformation();
 
 type SectionItems = {
@@ -60,7 +60,7 @@ const onAddNewSectionItem = async () => {
     <expansion-panel
       v-for="(sectionItem, index) in sectionItems"
       :key="index"
-      class="mt-3 rounded border px-5 py-3.5"
+      class="mt-3 rounded border px-5 py-3.5 pb-5"
     >
       <template #activator="{ click }">
         <div class="group grid grid-rows-2" role="button" @click="click">
