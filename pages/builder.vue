@@ -5,14 +5,14 @@ const { builderSections } = useUseBuilderFormTemplates();
 </script>
 <template>
   <div class="grid w-lvw grid-flow-col grid-cols-2 grid-rows-1 gap-4">
-    <div class="h-screen overflow-y-scroll p-16">
+    <div class="h-lvh overflow-y-scroll scroll-smooth p-16">
       <personal-information-form />
       <personal-additional-information-form />
       <builder-professional-summary />
       <builder-section
         v-for="(section, idx) in builderSections"
         :key="idx"
-        :section-title="section.title"
+        v-model:section-title="section.title"
         :item-title-template="section.itemTitleTemplate"
         :section-subtitle="section.subtitle"
         :form-template="section.formTemplate"

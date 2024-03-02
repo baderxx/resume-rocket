@@ -10,10 +10,10 @@ type SectionItems = {
   fields: EditorFieldSchema[];
 };
 
+const sectionTitle = defineModel("sectionTitle");
 const sectionItems: Ref<SectionItems[]> = ref([]);
 
 type SectionProps = {
-  sectionTitle: string;
   sectionSubtitle: string;
   addActionText: string;
   sectionDataKey: string;
@@ -22,7 +22,6 @@ type SectionProps = {
 };
 
 const props = withDefaults(defineProps<Partial<SectionProps>>(), {
-  sectionTitle: "",
   sectionSubtitle: "",
   addActionText: "",
   sectionDataKey: "",
@@ -54,7 +53,7 @@ const onAddNewSectionItem = async () => {
 <template>
   <div class="mt-5">
     <builder-section-header
-      :title="sectionTitle"
+      v-model:title="sectionTitle"
       :sub-title="sectionSubtitle"
     />
     <expansion-panel

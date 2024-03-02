@@ -370,7 +370,7 @@ export const useUseBuilderFormTemplates = () => {
   }));
 
   const courcesSection = computed<Section>(() => ({
-    title: "Cources",
+    title: "Courses",
     subtitle:
       "List any additional courses, workshops, or certifications you've completed to enhance your skills or knowledge base. Include the institution or platform where you completed each course and any notable achievements or learning outcomes. This section showcases your commitment to continuous learning and professional development.",
     formTemplate: CourcesFormTemplate.value, // #TODO: Add inline schema for section
