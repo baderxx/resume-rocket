@@ -1,27 +1,37 @@
 <script setup lang="ts">
 import type { ResumeInformation } from "@/types/resumeData";
+import { mockResumeInformation } from "@/utils/mockResumeData";
 import type { Component } from "vue";
-import { ref } from "vue";
+import { computed, ref, watch } from "vue";
 
 type ResumeTemplate = {
   id: string;
   name: string;
   description: string;
   component: Component;
-  previewResume: ResumeInformation;
+  previewResume?: ResumeInformation;
   tags?: string[];
 };
 
-const { templates, selectedTemplateId } = defineProps<{
+const props = defineProps<{
   templates: ResumeTemplate[];
   selectedTemplateId: string;
+  layoutMode?: "grid" | "list";
 }>();
 
 const emit = defineEmits<{
   (event: "update:selectedTemplateId", value: string): void;
+  (event: "update:layoutMode", value: "grid" | "list"): void;
 }>();
 
-const layoutMode = ref<"grid" | "list">("grid");
+const internalLayout = ref<"grid" | "list">(props.layoutMode ?? "grid");
+
+watch(
+  () => props.layoutMode,
+  (value) => {
+    if (value) internalLayout.value = value;
+  },
+);
 
 const formatName = (resume: ResumeInformation) => {
   const fullName = [resume.firstName, resume.lastName]
@@ -35,6 +45,17 @@ const truncate = (value: string, limit = 140) => {
   if (!value) return "Add a short overview to highlight the template.";
   return value.length > limit ? `${value.slice(0, limit)}…` : value;
 };
+
+const layoutMode = computed({
+  get: () => internalLayout.value,
+  set: (value: "grid" | "list") => {
+    internalLayout.value = value;
+    emit("update:layoutMode", value);
+  },
+});
+
+const previewResumeFor = (template: ResumeTemplate) =>
+  template.previewResume || mockResumeInformation;
 
 const changeTemplate = (id: string) => emit("update:selectedTemplateId", id);
 </script>
@@ -97,19 +118,40 @@ const changeTemplate = (id: string) => emit("update:selectedTemplateId", id);
         </div>
 
         <div
-          class="mt-3 rounded-md border border-white/15 bg-white/80 p-3 text-gray-900 shadow-inner"
+            class="mt-3 relative overflow-hidden rounded-lg border border-white/10 bg-slate-950/60 shadow-inner"
+            :class="layoutMode === 'grid' ? 'h-56' : 'h-64'"
+        >
+          <div
+            class="pointer-events-none origin-top-left scale-[0.28] transform-gpu"
+            style="width: 592px"
+          >
+            <component
+              :is="template.component"
+              :resume="previewResumeFor(template)"
+            />
+          </div>
+          <div
+            v-if="!template.previewResume"
+            class="absolute left-3 top-3 rounded-full bg-white/80 px-2 py-1 text-[10px] font-semibold uppercase tracking-wide text-slate-700"
+          >
+            Using sample data
+          </div>
+        </div>
+
+        <div
+            class="mt-3 rounded-md border border-white/15 bg-white/80 p-3 text-gray-900 shadow-inner"
         >
           <div class="flex flex-col gap-2">
             <div>
               <p class="text-sm font-semibold">
-                {{ formatName(template.previewResume) }}
+                {{ formatName(previewResumeFor(template)) }}
               </p>
               <p class="text-xs text-gray-600">
-                {{ template.previewResume.jobTitle }}
+                {{ previewResumeFor(template).jobTitle }}
               </p>
             </div>
             <p class="text-xs leading-relaxed text-gray-700">
-              {{ truncate(template.previewResume.professionalSummary) }}
+              {{ truncate(previewResumeFor(template).professionalSummary) }}
             </p>
             <div class="flex flex-wrap gap-1">
               <span

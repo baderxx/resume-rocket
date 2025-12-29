@@ -105,3 +105,82 @@ export const modernMockResumeInformation: ResumeInformation = {
     },
   ],
 };
+
+export const spotlightMockResumeInformation: ResumeInformation = {
+  ...mockResumeInformation,
+  jobTitle: "Marketing Lead",
+  firstName: "Avery",
+  lastName: "Lopez",
+  email: "avery.lopez@northpeak.io",
+  phoneNumber: "+1 555-210-8899",
+  city: "Denver",
+  country: "United States",
+  professionalSummary:
+    "Growth-minded marketer who blends storytelling with analytics to launch campaigns that convert. Experienced in lifecycle strategy, experimentation, and cross-team alignment.",
+  employmentHistory: [
+    {
+      jobTitle: "Growth Marketing Manager",
+      employer: "Northpeak",
+      startAndEndDate: { startDate: "2021-04", endDate: "" },
+      city: "Denver",
+      description:
+        "Scaled multi-channel campaigns that grew qualified pipeline by 42% YoY and launched nurture tracks that improved activation by 18%.",
+    },
+    {
+      jobTitle: "Demand Generation Specialist",
+      employer: "Lumen",
+      startAndEndDate: { startDate: "2018-02", endDate: "2021-03" },
+      city: "Remote",
+      description:
+        "Built webinar program, optimized landing pages, and partnered with sales to shorten the sales cycle through better lead scoring.",
+    },
+  ],
+  projects: [
+    {
+      projectName: "Pipeline Pulse",
+      url: "northpeak.io/pulse",
+      startAndEndDate: { startDate: "2023-07", endDate: "2023-11" },
+      description:
+        "A monthly insight report combining product usage and CRM data to surface growth opportunities, shared with go-to-market teams.",
+    },
+    {
+      projectName: "Lifecycle Refresh",
+      url: "northpeak.io/lifecycle",
+      startAndEndDate: { startDate: "2022-03", endDate: "2022-08" },
+      description:
+        "Rebuilt onboarding and expansion journeys with experimentation loops, increasing trial-to-paid conversion by 12%.",
+    },
+  ],
+  education: [
+    {
+      school: "University of Oregon",
+      degree: "B.A. Marketing",
+      startAndEndDate: { startDate: "2010-09", endDate: "2014-06" },
+      city: "Eugene",
+      description:
+        "Focused on marketing strategy, communication, and consumer behavior research.",
+    },
+  ],
+  socialLinks: [
+    { label: "LinkedIn", url: "linkedin.com/in/avery-lopez" },
+    { label: "Portfolio", url: "averylopez.com" },
+  ],
+  skills: [
+    { skillName: "Lifecycle Strategy", expertiseLevel: 5 },
+    { skillName: "Email & Nurture", expertiseLevel: 4 },
+    { skillName: "Experimentation", expertiseLevel: 4 },
+    { skillName: "Analytics", expertiseLevel: 4 },
+  ],
+  languages: [
+    { language: "English", fluency: "Native" },
+    { language: "Spanish", fluency: "Conversational" },
+  ],
+  references: [
+    {
+      referenceFullName: "Priya Patel",
+      company: "Northpeak",
+      phone: "+1 555-101-2244",
+      email: "priya.patel@northpeak.io",
+    },
+  ],
+};

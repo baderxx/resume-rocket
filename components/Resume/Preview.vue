@@ -4,12 +4,14 @@ import { computed, ref } from "vue";
 
 import ClassicTemplate from "@/components/Resume/Templates/ClassicTemplate.vue";
 import ModernTemplate from "@/components/Resume/Templates/ModernTemplate.vue";
+import SpotlightTemplate from "@/components/Resume/Templates/SpotlightTemplate.vue";
 import ResumeTemplateSelector from "@/components/Resume/TemplateSelector.vue";
 import { useResumeInformation } from "@/composables/useResumeInformation";
 import type { ResumeInformation } from "@/types/resumeData";
 import {
   mockResumeInformation,
   modernMockResumeInformation,
+  spotlightMockResumeInformation,
 } from "@/utils/mockResumeData";
 
 type ResumeTemplate = {
@@ -17,7 +19,7 @@ type ResumeTemplate = {
   name: string;
   description: string;
   component: Component;
-  previewResume: ResumeInformation;
+  previewResume?: ResumeInformation;
   tags?: string[];
 };
 
@@ -50,16 +52,26 @@ const templates: ResumeTemplate[] = [
     previewResume: modernMockResumeInformation,
     tags: ["Minimal", "Contrast"],
   },
+  {
+    id: "spotlight",
+    name: "Spotlight",
+    description:
+      "Hero summary ribbon paired with clean sections to spotlight achievements.",
+    component: SpotlightTemplate,
+    previewResume: spotlightMockResumeInformation,
+    tags: ["Profile first", "Hiring ready"],
+  },
 ];
 
 const { resumeData } = useResumeInformation();
 
-const selectedTemplateId = ref(templates[0].id);
-const isTemplateModalOpen = ref(false);
+const selectedTemplateId = ref(templates[0]?.id ?? "");
+const isTemplateGalleryVisible = ref(true);
 
 const selectedTemplate = computed<ResumeTemplate | undefined>(() =>
   templates.find((template) => template.id === selectedTemplateId.value),
 );
+const hasTemplates = computed(() => templates.length > 0);
 
 const hasUserContent = computed(() => {
   const stringFields: Array<keyof ResumeInformation> = [
@@ -105,17 +117,9 @@ const displayResumeData = computed<DisplayResume>(() => {
 
 const isUsingMockData = computed(() => !hasUserContent.value);
 
-const openTemplateModal = () => {
-  isTemplateModalOpen.value = true;
-};
-
-const closeTemplateModal = () => {
-  isTemplateModalOpen.value = false;
-};
-
 const handleTemplateChange = (templateId: string) => {
   selectedTemplateId.value = templateId;
-  closeTemplateModal();
+  isTemplateGalleryVisible.value = true;
 };
 </script>
 <template>
@@ -135,13 +139,15 @@ const handleTemplateChange = (templateId: string) => {
         >
           {{ selectedTemplate?.name ?? "Classic" }}
         </span>
-        <button
-          class="rounded-md border border-white/30 px-3 py-2 text-sm font-semibold text-white transition hover:border-white hover:bg-white/10"
-          type="button"
-          @click="openTemplateModal"
-        >
-          Select template
-        </button>
+        <div class="flex items-center gap-2">
+          <button
+            class="rounded-md border border-white/30 px-3 py-2 text-sm font-semibold text-white transition hover:border-white hover:bg-white/10"
+            type="button"
+            @click="isTemplateGalleryVisible = !isTemplateGalleryVisible"
+          >
+            {{ isTemplateGalleryVisible ? "Hide" : "Show" }} template gallery
+          </button>
+        </div>
       </div>
     </div>
 
@@ -151,9 +157,16 @@ const handleTemplateChange = (templateId: string) => {
           class="resume-preview select-none overflow-hidden rounded-xl bg-white shadow-2xl ring-2 ring-white/10"
         >
           <component
-            :is="selectedTemplate?.component ?? 'div'"
+            v-if="selectedTemplate"
+            :is="selectedTemplate.component"
             :resume="displayResumeData"
           />
+          <div
+            v-else
+            class="flex h-full items-center justify-center bg-slate-50 text-center text-sm font-semibold text-slate-500"
+          >
+            No templates available. Add a template to see your resume preview.
+          </div>
         </div>
         <div
           v-if="isUsingMockData"
@@ -164,44 +177,64 @@ const handleTemplateChange = (templateId: string) => {
       </div>
     </div>
 
-    <Teleport to="body">
+    <div
+      class="rounded-2xl border border-white/15 bg-slate-900/60 p-4 shadow-inner ring-1 ring-white/10"
+    >
       <div
-        v-if="isTemplateModalOpen"
-        class="fixed inset-0 z-50 flex items-center justify-center bg-slate-900/70 backdrop-blur-sm"
-        role="dialog"
-        aria-modal="true"
+        class="flex flex-col gap-2 md:flex-row md:items-center md:justify-between"
       >
-        <div
-          class="max-h-[90vh] w-full max-w-4xl overflow-y-auto rounded-2xl border border-white/20 bg-slate-800/95 p-4 shadow-2xl ring-1 ring-white/10"
-        >
-          <div class="mb-3 flex items-center justify-between">
-            <div>
-              <p class="text-lg font-semibold text-white">Select a template</p>
-              <p class="text-sm text-white/70">
-                Switch templates anytime. Your resume data will stay intact.
-              </p>
-            </div>
-            <button
-              class="rounded-full border border-white/30 bg-white/10 px-3 py-1 text-xs font-semibold uppercase tracking-wide text-white transition hover:border-white/60"
-              type="button"
-              @click="closeTemplateModal"
-            >
-              Close
-            </button>
-          </div>
+        <div>
+          <p class="text-lg font-semibold text-white">Template gallery</p>
+          <p class="text-sm text-white/70">
+            Browse layouts in grid or list view and apply them instantly.
+          </p>
+        </div>
+        <div class="flex items-center gap-2 text-xs text-white/70">
+          <span class="rounded-full bg-white/10 px-3 py-1 font-semibold">
+            {{ hasTemplates ? templates.length : 0 }} templates
+          </span>
+          <button
+            class="rounded-md border border-white/30 px-3 py-2 text-sm font-semibold text-white transition hover:border-white hover:bg-white/10"
+            type="button"
+            @click="isTemplateGalleryVisible = !isTemplateGalleryVisible"
+          >
+            {{ isTemplateGalleryVisible ? "Hide" : "Show" }} gallery
+          </button>
+        </div>
+      </div>
+      <Transition name="fade">
+        <div v-if="isTemplateGalleryVisible" class="mt-4">
           <ResumeTemplateSelector
+            v-if="hasTemplates"
             :templates="templates"
             :selected-template-id="selectedTemplateId"
             @update:selected-template-id="handleTemplateChange"
           />
+          <div
+            v-else
+            class="rounded-md border border-dashed border-white/30 bg-white/5 p-4 text-sm text-white/80"
+          >
+            No templates available. Add templates to see previews and enable
+            switching.
+          </div>
         </div>
-      </div>
-    </Teleport>
+      </Transition>
+    </div>
   </div>
 </template>
 <style scoped>
 .resume-preview {
   height: 842px;
   width: 592px;
+}
+
+.fade-enter-active,
+.fade-leave-active {
+  transition: opacity 0.2s ease;
+}
+
+.fade-enter-from,
+.fade-leave-to {
+  opacity: 0;
 }
 </style>
