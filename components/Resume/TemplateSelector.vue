@@ -1,6 +1,6 @@
 <script setup lang="ts">
+import { resumeInformationSchema } from "@/composables/useResumeInformation";
 import type { ResumeInformation } from "@/types/resumeData";
-import { mockResumeInformation } from "@/utils/mockResumeData";
 import type { Component } from "vue";
 import { computed, ref, watch } from "vue";
 
@@ -13,10 +13,21 @@ type ResumeTemplate = {
   tags?: string[];
 };
 
+type PreviewResume = Partial<ResumeInformation> & {
+  employmentHistory?: Partial<ResumeInformation["employmentHistory"][number]>[];
+  education?: Partial<ResumeInformation["education"][number]>[];
+  projects?: Partial<ResumeInformation["projects"][number]>[];
+  skills?: Partial<ResumeInformation["skills"][number]>[];
+  socialLinks?: Partial<ResumeInformation["socialLinks"][number]>[];
+  languages?: Partial<ResumeInformation["languages"][number]>[];
+  references?: Partial<ResumeInformation["references"][number]>[];
+};
+
 const props = defineProps<{
   templates: ResumeTemplate[];
   selectedTemplateId: string;
   layoutMode?: "grid" | "list";
+  previewResume?: PreviewResume;
 }>();
 
 const emit = defineEmits<{
@@ -55,7 +66,15 @@ const layoutMode = computed({
 });
 
 const previewResumeFor = (template: ResumeTemplate) =>
-  template.previewResume || mockResumeInformation;
+  props.previewResume ||
+  template.previewResume ||
+  (resumeInformationSchema as PreviewResume);
+
+const previewBadgeFor = (template: ResumeTemplate) => {
+  if (props.previewResume) return "Live preview";
+  if (template.previewResume) return "Template sample";
+  return "Starter data";
+};
 
 const changeTemplate = (id: string) => emit("update:selectedTemplateId", id);
 </script>
@@ -131,10 +150,10 @@ const changeTemplate = (id: string) => emit("update:selectedTemplateId", id);
             />
           </div>
           <div
-            v-if="!template.previewResume"
+            v-if="previewBadgeFor(template)"
             class="absolute left-3 top-3 rounded-full bg-white/80 px-2 py-1 text-[10px] font-semibold uppercase tracking-wide text-slate-700"
           >
-            Using sample data
+            {{ previewBadgeFor(template) }}
           </div>
         </div>
 
