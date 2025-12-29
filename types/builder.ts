@@ -9,7 +9,7 @@ export type ValidationRule = (value: unknown) => true | string;
 export type EditorFieldSchema = {
   title: string;
   type: EDITOR_FIELDS;
-  value: string;
+  value: any;
   fieldName: string;
   cols: number;
   rules?: ValidationRule[];

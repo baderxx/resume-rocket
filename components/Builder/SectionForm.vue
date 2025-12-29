@@ -22,6 +22,28 @@ const emitUpdate = () => {
   emit("update:modelValue", { ...formValues.value });
 };
 
+const resolveFieldValue = (
+  field: EditorFieldSchema,
+  sourceValue: unknown,
+): any => {
+  if (field.type === EDITOR_FIELDS.START_AND_END_DATE) {
+    if (typeof sourceValue === "string") {
+      return {
+        startDate: sourceValue,
+        endDate: "",
+      };
+    }
+
+    const rangeValue = sourceValue ?? field.value ?? {};
+    return {
+      startDate: rangeValue?.startDate ?? "",
+      endDate: rangeValue?.endDate ?? "",
+    };
+  }
+
+  return sourceValue ?? field.value ?? "";
+};
+
 const validateField = (field: EditorFieldSchema) => {
   const rules = field.rules || [];
   const result = rules
@@ -51,11 +73,16 @@ const onSubmit = () => {
 };
 
 const initializeFormValues = () => {
-  const initialValues = props.fields.reduce((acc, field) => {
-    acc[field.fieldName] =
-      props.modelValue?.[field.fieldName] ?? field.value ?? "";
-    return acc;
-  }, {} as Record<string, any>);
+  const initialValues = props.fields.reduce(
+    (acc, field) => {
+      acc[field.fieldName] = resolveFieldValue(
+        field,
+        props.modelValue?.[field.fieldName],
+      );
+      return acc;
+    },
+    {} as Record<string, any>,
+  );
 
   formValues.value = initialValues;
 };
@@ -63,7 +90,28 @@ const initializeFormValues = () => {
 watch(
   () => props.modelValue,
   (newValue) => {
-    formValues.value = { ...formValues.value, ...newValue };
+    const updatedValues = props.fields.reduce(
+      (acc, field) => {
+        const incomingValue = newValue?.[field.fieldName];
+        const currentValue = formValues.value[field.fieldName];
+        acc[field.fieldName] = resolveFieldValue(
+          field,
+          incomingValue ?? currentValue,
+        );
+        return acc;
+      },
+      {} as Record<string, any>,
+    );
+
+    formValues.value = updatedValues;
+  },
+  { deep: true },
+);
+
+watch(
+  formValues,
+  () => {
+    emitUpdate();
   },
   { deep: true },
 );
@@ -91,7 +139,7 @@ defineExpose({
             :label="field?.title"
             @blur="onFieldBlur(field)"
           />
-          <form-text-field
+          <form-date-range-picker
             v-if="field.type === EDITOR_FIELDS.START_AND_END_DATE"
             v-model="formValues[field.fieldName]"
             :error="!!errors[field.fieldName]"
@@ -103,10 +151,7 @@ defineExpose({
         <client-only v-if="field.type === EDITOR_FIELDS.EDITOR">
           <div class="col-span-2" @focusout="onFieldBlur(field)">
             <content-editor v-model.trim="formValues[field.fieldName]" />
-            <p
-              v-if="errors[field.fieldName]"
-              class="mt-1 text-xs text-red-500"
-            >
+            <p v-if="errors[field.fieldName]" class="mt-1 text-xs text-red-500">
               {{ errors[field.fieldName] }}
             </p>
           </div>

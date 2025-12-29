@@ -33,12 +33,7 @@ type ResumeCollectionValue = Array<Record<string, unknown>>;
 const { resumeData } = useResumeInformation();
 const resumeDataRecord = resumeData as Ref<DeepPartial<ResumeInformation>>;
 
-type SectionItems = {
-  fields: EditorFieldSchema[];
-};
-
 const sectionTitle = defineModel("sectionTitle");
-const sectionItems: Ref<SectionItems[]> = ref([]);
 
 type SectionProps = {
   sectionSubtitle: string;
@@ -66,14 +61,12 @@ const sectionArray = computed(() => {
   const key = sectionDataKeyTyped.value;
   const existing = resumeDataRecord.value[key];
 
-  const preparedArray = Array.isArray(existing)
-    ? (existing as ResumeCollectionValue)
-    : [];
+  if (!Array.isArray(existing)) {
+    resumeDataRecord.value[key] =
+      [] as DeepPartial<ResumeInformation>[typeof key];
+  }
 
-  resumeDataRecord.value[key] =
-    preparedArray as DeepPartial<ResumeInformation>[typeof key];
-
-  return preparedArray;
+  return (resumeDataRecord.value[key] as ResumeCollectionValue) ?? [];
 });
 
 const getCompiledSectionTitle = computed(() => (index: number) => {
@@ -92,12 +85,80 @@ const getCompiledSectionTitle = computed(() => (index: number) => {
     .join(" ");
 });
 
+const formatDateRange = (range: unknown) => {
+  if (!range || typeof range !== "object") return "";
+  const { startDate, endDate } = range as Record<string, string>;
+  if (!startDate && !endDate) return "";
+  return [startDate, endDate || "Present"].filter(Boolean).join(" - ");
+};
+
+const getDateRangeForSectionItem = computed(() => (index: number) => {
+  const entry = sectionArray.value[index] as Record<string, unknown>;
+  return formatDateRange(entry?.startAndEndDate);
+});
+
 const onAddNewSectionItem = async () => {
   const defaultItem = createDefaultSectionItem(
     (props.sectionType || props.sectionDataKey) as SectionTypes,
   );
   sectionArray.value.push(defaultItem);
-  sectionItems.value.push({ fields: props.formTemplate });
+};
+
+const onRemoveSectionItem = (index: number) => {
+  sectionArray.value.splice(index, 1);
+};
+
+const skillSearchTerm = ref("");
+const skillSuggestions = [
+  "Java",
+  "JavaScript",
+  "Vue.js",
+  "React.js",
+  "Nuxt.js",
+  "Next.js",
+  "TypeScript",
+  "Node.js",
+  "GraphQL",
+  "Docker",
+];
+
+const filteredSkillSuggestions = computed(() => {
+  if (!skillSearchTerm.value.trim()) return skillSuggestions;
+  return skillSuggestions.filter((skill) =>
+    skill.toLowerCase().includes(skillSearchTerm.value.trim().toLowerCase()),
+  );
+});
+
+const addSkillToResume = (skillName: string) => {
+  const normalizedSkill = skillName.trim();
+  if (!normalizedSkill) return;
+
+  const skillsArray = sectionArray.value as ResumeCollectionValue;
+  const alreadyExists = skillsArray.some(
+    (skill) =>
+      typeof skill?.skillName === "string" &&
+      skill.skillName.toLowerCase() === normalizedSkill.toLowerCase(),
+  );
+
+  if (alreadyExists) {
+    skillSearchTerm.value = "";
+    return;
+  }
+
+  skillsArray.push({
+    skillName: normalizedSkill,
+    expertiseLevel: 3,
+  });
+  skillSearchTerm.value = "";
+};
+
+const removeSkill = (index: number) => {
+  sectionArray.value.splice(index, 1);
+};
+
+const handleSkillEnter = (event: Event) => {
+  event.preventDefault();
+  addSkillToResume(skillSearchTerm.value);
 };
 </script>
 <template>
@@ -107,26 +168,56 @@ const onAddNewSectionItem = async () => {
       :sub-title="sectionSubtitle"
     />
 
-    <!--  #TODO: move this to a component and get the skill data from api -->
-    <div v-if="sectionType === SectionTypes.SKILLS" class="mt-4">
-      <button
-        v-for="(skill, idx) in [
-          'Java',
-          'JavaScript',
-          'Vue.js',
-          'React.js',
-          'Nuxt.js',
-          'Next.js',
-        ]"
-        :key="idx"
-        class="mb-3 me-2 rounded bg-[#eff2f9] px-3.5 py-1 hover:bg-[#eaf6ff] hover:text-[#1a91f0]"
-      >
-        <span class="text-base">{{ skill }}</span>
-        <font-awesome-icon class="ml-1.5" :icon="['fas', 'plus']" />
-      </button>
+    <div v-if="sectionType === SectionTypes.SKILLS" class="mt-4 space-y-4">
+      <div class="flex flex-col gap-2">
+        <label class="text-sm font-normal text-indigo-900">Search skills</label>
+        <form class="flex gap-2" @submit.prevent="handleSkillEnter">
+          <input
+            v-model="skillSearchTerm"
+            type="text"
+            placeholder="Start typing to search or add a skill"
+            class="min-h-12 w-full rounded bg-[#eff2f9] p-2 focus:rounded-b-none focus:border-b-2 focus:border-blue-600 focus:outline-none"
+          />
+          <button
+            class="rounded bg-[#1a91f0] px-3.5 py-2 text-sm font-bold text-white hover:bg-[#1474c2]"
+            type="submit"
+          >
+            Add
+          </button>
+        </form>
+        <div class="flex flex-wrap gap-2">
+          <button
+            v-for="(skill, idx) in filteredSkillSuggestions"
+            :key="idx"
+            class="rounded bg-[#eff2f9] px-3.5 py-1 text-sm text-indigo-900 transition hover:bg-[#eaf6ff] hover:text-[#1a91f0]"
+            type="button"
+            @click="addSkillToResume(skill)"
+          >
+            {{ skill }}
+          </button>
+        </div>
+      </div>
+
+      <div v-if="sectionArray.length" class="flex flex-wrap gap-2">
+        <div
+          v-for="(skill, skillIndex) in sectionArray"
+          :key="`${skillIndex}-${skill.skillName}`"
+          class="flex items-center gap-1 rounded-full bg-[#e0e7ff] px-3 py-1 text-sm text-indigo-900"
+        >
+          <span>{{ skill?.skillName || "Skill" }}</span>
+          <button
+            aria-label="Remove skill"
+            class="text-indigo-700 hover:text-indigo-900"
+            type="button"
+            @click.stop="removeSkill(skillIndex)"
+          >
+            &times;
+          </button>
+        </div>
+      </div>
     </div>
     <expansion-panel
-      v-for="(sectionItem, index) in sectionItems"
+      v-for="(sectionItem, index) in sectionArray"
       :key="index"
       class="mt-3 rounded border px-5 py-3.5 pb-5"
     >
@@ -135,15 +226,26 @@ const onAddNewSectionItem = async () => {
           <span class="text-sm font-bold group-hover:text-[#1a91f0]">{{
             getCompiledSectionTitle(index)
           }}</span>
-          <span class="mt-1 text-sm font-thin">Oct 2020 - Present</span>
+          <span class="mt-1 text-sm font-thin">{{
+            getDateRangeForSectionItem(index) || "Add dates"
+          }}</span>
         </div>
       </template>
       <template #content>
         <builder-section-form
           v-model="sectionArray[index]"
-          :fields="sectionItem.fields"
+          :fields="formTemplate"
           class="mt-3"
         />
+        <div class="mt-3 flex justify-end">
+          <button
+            class="text-sm font-semibold text-red-600 hover:text-red-700"
+            type="button"
+            @click.stop="onRemoveSectionItem(index)"
+          >
+            Delete item
+          </button>
+        </div>
       </template>
     </expansion-panel>
     <button

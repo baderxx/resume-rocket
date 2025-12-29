@@ -1,3 +1,5 @@
+import { computed } from "vue";
+
 import type { EditorFieldSchema, Section } from "@/types/builder";
 import { EDITOR_FIELDS } from "@/types/builder";
 import { SectionTypes } from "@/types/enums";
@@ -6,6 +8,14 @@ export const useUseBuilderFormTemplates = () => {
   const requiredRule = (label: string) => (value: unknown) => {
     if (typeof value === "string" && value.trim()) return true;
     if (value) return true;
+    return `${label} is required`;
+  };
+
+  const dateRangeRule = (label: string) => (value: unknown) => {
+    if (!value || typeof value !== "object") return `${label} is required`;
+    const { startDate, endDate } = value as Record<string, string>;
+    if (typeof startDate === "string" && startDate.trim()) return true;
+    if (typeof endDate === "string" && endDate.trim()) return true;
     return `${label} is required`;
   };
 
@@ -38,10 +48,13 @@ export const useUseBuilderFormTemplates = () => {
       {
         title: "Start & End Date",
         type: EDITOR_FIELDS.START_AND_END_DATE,
-        value: "",
+        value: {
+          startDate: "",
+          endDate: "",
+        },
         fieldName: "startAndEndDate",
         cols: 6,
-        rules: [requiredRule("Start & End Date")],
+        rules: [dateRangeRule("Start & End Date")],
       },
       {
         title: "City",
@@ -82,10 +95,13 @@ export const useUseBuilderFormTemplates = () => {
       {
         title: "Start & End Date",
         type: EDITOR_FIELDS.START_AND_END_DATE,
-        value: "",
+        value: {
+          startDate: "",
+          endDate: "",
+        },
         fieldName: "startAndEndDate",
         cols: 6,
-        rules: [requiredRule("Start & End Date")],
+        rules: [dateRangeRule("Start & End Date")],
       },
       {
         title: "City",
@@ -126,10 +142,13 @@ export const useUseBuilderFormTemplates = () => {
       {
         title: "Start & End Date",
         type: EDITOR_FIELDS.START_AND_END_DATE,
-        value: "",
+        value: {
+          startDate: "",
+          endDate: "",
+        },
         fieldName: "startAndEndDate",
         cols: 6,
-        rules: [requiredRule("Start & End Date")],
+        rules: [dateRangeRule("Start & End Date")],
       },
       {
         title: "Description",
@@ -227,10 +246,13 @@ export const useUseBuilderFormTemplates = () => {
       {
         title: "Start & End Date",
         type: EDITOR_FIELDS.START_AND_END_DATE,
-        value: "",
+        value: {
+          startDate: "",
+          endDate: "",
+        },
         fieldName: "startAndEndDate",
         cols: 6,
-        rules: [requiredRule("Start & End Date")],
+        rules: [dateRangeRule("Start & End Date")],
       },
     ];
   });
@@ -253,35 +275,38 @@ export const useUseBuilderFormTemplates = () => {
       return [
         {
           title: "Activity title",
-        type: EDITOR_FIELDS.TEXT,
-        value: "",
-        fieldName: "activityTitle",
-        cols: 6,
-        rules: [requiredRule("Activity title")],
-      },
-      {
-        title: "Start & End Date",
-        type: EDITOR_FIELDS.START_AND_END_DATE,
-        value: "",
-        fieldName: "startAndEndDate",
-        cols: 6,
-        rules: [requiredRule("Start & End Date")],
-      },
-      {
-        title: "City",
-        type: EDITOR_FIELDS.TEXT,
-        value: "",
-        fieldName: "city",
-        cols: 6,
-        rules: [requiredRule("City")],
-      },
-      {
-        title: "Description",
-        type: EDITOR_FIELDS.EDITOR,
-        value: "",
-        fieldName: "description",
-        cols: 12,
-      },
+          type: EDITOR_FIELDS.TEXT,
+          value: "",
+          fieldName: "activityTitle",
+          cols: 6,
+          rules: [requiredRule("Activity title")],
+        },
+        {
+          title: "Start & End Date",
+          type: EDITOR_FIELDS.START_AND_END_DATE,
+          value: {
+            startDate: "",
+            endDate: "",
+          },
+          fieldName: "startAndEndDate",
+          cols: 6,
+          rules: [dateRangeRule("Start & End Date")],
+        },
+        {
+          title: "City",
+          type: EDITOR_FIELDS.TEXT,
+          value: "",
+          fieldName: "city",
+          cols: 6,
+          rules: [requiredRule("City")],
+        },
+        {
+          title: "Description",
+          type: EDITOR_FIELDS.EDITOR,
+          value: "",
+          fieldName: "description",
+          cols: 12,
+        },
       ];
     },
   );

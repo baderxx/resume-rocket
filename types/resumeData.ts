@@ -1,7 +1,12 @@
+export type DateRange = {
+  startDate: string;
+  endDate: string;
+};
+
 export type EmploymentHistoryItem = {
   jobTitle: string;
   employer: string;
-  startAndEndDate: string; // Consider Date objects for easier handling
+  startAndEndDate: DateRange; // Consider Date objects for easier handling
   city: string;
   description: string; // Rich text placeholder
 };
@@ -9,14 +14,14 @@ export type EmploymentHistoryItem = {
 export type ProjectItem = {
   projectName: string;
   url: string;
-  startAndEndDate: string; // Consider Date objects
+  startAndEndDate: DateRange; // Consider Date objects
   description: string; // Rich text placeholder
 };
 
 export type EducationItem = {
   school: string;
   degree: string;
-  startAndEndDate: string; // Consider Date objects
+  startAndEndDate: DateRange; // Consider Date objects
   city: string;
   description: string; // Rich text placeholder
 };
@@ -39,12 +44,12 @@ export type LanguageItem = {
 export type CourseItem = {
   courseName: string;
   institution: string;
-  startAndEndDate: string; // Consider Date objects
+  startAndEndDate: DateRange; // Consider Date objects
 };
 
 export type ExtraCurricularActivityItem = {
   activityTitle: string;
-  startAndEndDate: string; // Consider Date objects
+  startAndEndDate: DateRange; // Consider Date objects
   city: string;
   description: string; // Rich text placeholder
 };

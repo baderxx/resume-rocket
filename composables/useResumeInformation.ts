@@ -21,26 +21,45 @@ type DeepPartial<T> = {
   [K in keyof T]?: T[K] extends object ? DeepPartial<T[K]> : any;
 };
 
-const requiredRule = (label: string): ValidationRule => (value: unknown) => {
-  if (typeof value === "string") {
-    return value.trim().length > 0 ? true : `${label} is required`;
-  }
+const requiredRule =
+  (label: string): ValidationRule =>
+  (value: unknown) => {
+    if (typeof value === "string") {
+      return value.trim().length > 0 ? true : `${label} is required`;
+    }
 
-  if (Array.isArray(value)) {
-    return value.length > 0 ? true : `${label} is required`;
-  }
+    if (Array.isArray(value)) {
+      return value.length > 0 ? true : `${label} is required`;
+    }
 
-  if (value !== undefined && value !== null) {
-    return true;
-  }
+    if (value !== undefined && value !== null) {
+      return true;
+    }
 
-  return `${label} is required`;
-};
+    return `${label} is required`;
+  };
+
+const dateRangeRequiredRule =
+  (label: string): ValidationRule =>
+  (value: unknown) => {
+    if (!value || typeof value !== "object") return `${label} is required`;
+    const { startDate, endDate } = value as Record<string, unknown>;
+    if (
+      (typeof startDate === "string" && startDate.trim().length > 0) ||
+      (typeof endDate === "string" && endDate.trim().length > 0)
+    ) {
+      return true;
+    }
+    return `${label} is required`;
+  };
 
 const createEmploymentHistoryItem = (): EmploymentHistoryItem => ({
   jobTitle: "",
   employer: "",
-  startAndEndDate: "",
+  startAndEndDate: {
+    startDate: "",
+    endDate: "",
+  },
   city: "",
   description: "",
 });
@@ -48,14 +67,20 @@ const createEmploymentHistoryItem = (): EmploymentHistoryItem => ({
 const createProjectItem = (): ProjectItem => ({
   projectName: "",
   url: "",
-  startAndEndDate: "",
+  startAndEndDate: {
+    startDate: "",
+    endDate: "",
+  },
   description: "",
 });
 
 const createEducationItem = (): EducationItem => ({
   school: "",
   degree: "",
-  startAndEndDate: "",
+  startAndEndDate: {
+    startDate: "",
+    endDate: "",
+  },
   city: "",
   description: "",
 });
@@ -78,7 +103,10 @@ const createLanguageItem = (): LanguageItem => ({
 const createCourseItem = (): CourseItem => ({
   courseName: "",
   institution: "",
-  startAndEndDate: "",
+  startAndEndDate: {
+    startDate: "",
+    endDate: "",
+  },
 });
 
 const createHobbyItem = (): HobbyItem => ({
@@ -87,7 +115,10 @@ const createHobbyItem = (): HobbyItem => ({
 
 const createExtraCurricularActivityItem = (): ExtraCurricularActivityItem => ({
   activityTitle: "",
-  startAndEndDate: "",
+  startAndEndDate: {
+    startDate: "",
+    endDate: "",
+  },
   city: "",
   description: "",
 });
@@ -99,7 +130,10 @@ const createReferenceItem = (): ReferenceItem => ({
   email: "",
 });
 
-export const resumeValidationRules: Record<string, Record<string, ValidationRule[]>> = {
+export const resumeValidationRules: Record<
+  string,
+  Record<string, ValidationRule[]>
+> = {
   jobTitle: { jobTitle: [requiredRule("Wanted job title")] },
   firstName: { firstName: [requiredRule("First name")] },
   lastName: { lastName: [requiredRule("Last name")] },
@@ -117,18 +151,18 @@ export const resumeValidationRules: Record<string, Record<string, ValidationRule
   [SectionTypes.EMPLOYMENT_HISTORY]: {
     jobTitle: [requiredRule("Job title")],
     employer: [requiredRule("Employer")],
-    startAndEndDate: [requiredRule("Start & End Date")],
+    startAndEndDate: [dateRangeRequiredRule("Start & End Date")],
     city: [requiredRule("City")],
   },
   [SectionTypes.PROJECTS]: {
     projectName: [requiredRule("Project name")],
     url: [requiredRule("Project URL")],
-    startAndEndDate: [requiredRule("Start & End Date")],
+    startAndEndDate: [dateRangeRequiredRule("Start & End Date")],
   },
   [SectionTypes.EDUCATION]: {
     school: [requiredRule("School")],
     degree: [requiredRule("Degree")],
-    startAndEndDate: [requiredRule("Start & End Date")],
+    startAndEndDate: [dateRangeRequiredRule("Start & End Date")],
     city: [requiredRule("City")],
   },
   [SectionTypes.SOCIAL_LINKS]: {
@@ -146,20 +180,20 @@ export const resumeValidationRules: Record<string, Record<string, ValidationRule
   [SectionTypes.INTERNSHIPS]: {
     jobTitle: [requiredRule("Job title")],
     employer: [requiredRule("Employer")],
-    startAndEndDate: [requiredRule("Start & End Date")],
+    startAndEndDate: [dateRangeRequiredRule("Start & End Date")],
     city: [requiredRule("City")],
   },
   [SectionTypes.COURSES]: {
     courseName: [requiredRule("Course")],
     institution: [requiredRule("Institution")],
-    startAndEndDate: [requiredRule("Start & End Date")],
+    startAndEndDate: [dateRangeRequiredRule("Start & End Date")],
   },
   [SectionTypes.HOBBIES]: {
     hobby: [requiredRule("Hobby")],
   },
   [SectionTypes.EXTRA_CURRICULAR]: {
     activityTitle: [requiredRule("Activity title")],
-    startAndEndDate: [requiredRule("Start & End Date")],
+    startAndEndDate: [dateRangeRequiredRule("Start & End Date")],
     city: [requiredRule("City")],
   },
   [SectionTypes.REFERENCES]: {
