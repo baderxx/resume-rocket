@@ -3,6 +3,12 @@ import { EDITOR_FIELDS } from "@/types/builder";
 import { SectionTypes } from "@/types/enums";
 
 export const useUseBuilderFormTemplates = () => {
+  const requiredRule = (label: string) => (value: unknown) => {
+    if (typeof value === "string" && value.trim()) return true;
+    if (value) return true;
+    return `${label} is required`;
+  };
+
   const sectionTitle = computed(() => {
     return "Employment History";
   });
@@ -19,6 +25,7 @@ export const useUseBuilderFormTemplates = () => {
         value: "",
         fieldName: "jobTitle",
         cols: 6,
+        rules: [requiredRule("Job Title")],
       },
       {
         title: "Employer",
@@ -26,6 +33,7 @@ export const useUseBuilderFormTemplates = () => {
         value: "",
         fieldName: "employer",
         cols: 6,
+        rules: [requiredRule("Employer")],
       },
       {
         title: "Start & End Date",
@@ -33,6 +41,7 @@ export const useUseBuilderFormTemplates = () => {
         value: "",
         fieldName: "startAndEndDate",
         cols: 6,
+        rules: [requiredRule("Start & End Date")],
       },
       {
         title: "City",
@@ -40,6 +49,7 @@ export const useUseBuilderFormTemplates = () => {
         value: "",
         fieldName: "city",
         cols: 6,
+        rules: [requiredRule("City")],
       },
       {
         title: "Description",
@@ -59,6 +69,7 @@ export const useUseBuilderFormTemplates = () => {
         value: "",
         fieldName: "school",
         cols: 6,
+        rules: [requiredRule("School")],
       },
       {
         title: "Degree",
@@ -66,6 +77,7 @@ export const useUseBuilderFormTemplates = () => {
         value: "",
         fieldName: "degree",
         cols: 6,
+        rules: [requiredRule("Degree")],
       },
       {
         title: "Start & End Date",
@@ -73,6 +85,7 @@ export const useUseBuilderFormTemplates = () => {
         value: "",
         fieldName: "startAndEndDate",
         cols: 6,
+        rules: [requiredRule("Start & End Date")],
       },
       {
         title: "City",
@@ -80,6 +93,7 @@ export const useUseBuilderFormTemplates = () => {
         value: "",
         fieldName: "city",
         cols: 6,
+        rules: [requiredRule("City")],
       },
       {
         title: "Description",
@@ -99,6 +113,15 @@ export const useUseBuilderFormTemplates = () => {
         value: "",
         fieldName: "projectName",
         cols: 6,
+        rules: [requiredRule("Project Name")],
+      },
+      {
+        title: "Project URL",
+        type: EDITOR_FIELDS.TEXT,
+        value: "",
+        fieldName: "url",
+        cols: 6,
+        rules: [requiredRule("Project URL")],
       },
       {
         title: "Start & End Date",
@@ -106,6 +129,7 @@ export const useUseBuilderFormTemplates = () => {
         value: "",
         fieldName: "startAndEndDate",
         cols: 6,
+        rules: [requiredRule("Start & End Date")],
       },
       {
         title: "Description",
@@ -117,7 +141,7 @@ export const useUseBuilderFormTemplates = () => {
     ];
   });
 
-  const WebsiteAndSocialLinksFormTemplate = computed<EditorFieldSchema[]>(
+  const websiteAndSocialLinksFormTemplate = computed<EditorFieldSchema[]>(
     () => {
       return [
         {
@@ -126,13 +150,15 @@ export const useUseBuilderFormTemplates = () => {
           value: "",
           fieldName: "label",
           cols: 6,
+          rules: [requiredRule("Label")],
         },
         {
           title: "Url",
-          type: EDITOR_FIELDS.START_AND_END_DATE,
+          type: EDITOR_FIELDS.TEXT,
           value: "",
           fieldName: "url",
           cols: 6,
+          rules: [requiredRule("Url")],
         },
       ];
     },
@@ -144,15 +170,17 @@ export const useUseBuilderFormTemplates = () => {
         title: "Skill name",
         type: EDITOR_FIELDS.TEXT,
         value: "",
-        fieldName: "label",
+        fieldName: "skillName",
         cols: 6,
+        rules: [requiredRule("Skill name")],
       },
       {
-        title: "Experties Level",
-        type: EDITOR_FIELDS.START_AND_END_DATE,
+        title: "Expertise Level",
+        type: EDITOR_FIELDS.TEXT,
         value: "",
-        fieldName: "expertiesLevel",
+        fieldName: "expertiseLevel",
         cols: 6,
+        rules: [requiredRule("Expertise Level")],
       },
     ];
   });
@@ -165,32 +193,36 @@ export const useUseBuilderFormTemplates = () => {
         value: "",
         fieldName: "language",
         cols: 6,
+        rules: [requiredRule("Language")],
       },
       {
         title: "Level",
-        type: EDITOR_FIELDS.START_AND_END_DATE,
+        type: EDITOR_FIELDS.TEXT,
         value: "",
         fieldName: "fluency",
         cols: 6,
+        rules: [requiredRule("Level")],
       },
     ];
   });
 
-  const CourcesFormTemplate = computed<EditorFieldSchema[]>(() => {
+  const coursesFormTemplate = computed<EditorFieldSchema[]>(() => {
     return [
       {
-        title: "Cource",
+        title: "Course",
         type: EDITOR_FIELDS.TEXT,
         value: "",
         fieldName: "courseName",
         cols: 6,
+        rules: [requiredRule("Course")],
       },
       {
         title: "Institution",
-        type: EDITOR_FIELDS.START_AND_END_DATE,
+        type: EDITOR_FIELDS.TEXT,
         value: "",
         fieldName: "institution",
         cols: 6,
+        rules: [requiredRule("Institution")],
       },
       {
         title: "Start & End Date",
@@ -198,6 +230,7 @@ export const useUseBuilderFormTemplates = () => {
         value: "",
         fieldName: "startAndEndDate",
         cols: 6,
+        rules: [requiredRule("Start & End Date")],
       },
     ];
   });
@@ -208,8 +241,9 @@ export const useUseBuilderFormTemplates = () => {
         title: "Hobbies",
         type: EDITOR_FIELDS.TEXT,
         value: "",
-        fieldName: "hobbies",
+        fieldName: "hobby",
         cols: 12,
+        rules: [requiredRule("Hobby")],
       },
     ];
   });
@@ -219,32 +253,35 @@ export const useUseBuilderFormTemplates = () => {
       return [
         {
           title: "Activity title",
-          type: EDITOR_FIELDS.TEXT,
-          value: "",
-          fieldName: "activityTitle",
-          cols: 6,
-        },
-        {
-          title: "Start & End Date",
-          type: EDITOR_FIELDS.START_AND_END_DATE,
-          value: "",
-          fieldName: "startAndEndDate",
-          cols: 6,
-        },
-        {
-          title: "City",
-          type: EDITOR_FIELDS.TEXT,
-          value: "",
-          fieldName: "city",
-          cols: 6,
-        },
-        {
-          title: "Description",
-          type: EDITOR_FIELDS.EDITOR,
-          value: "",
-          fieldName: "description",
-          cols: 12,
-        },
+        type: EDITOR_FIELDS.TEXT,
+        value: "",
+        fieldName: "activityTitle",
+        cols: 6,
+        rules: [requiredRule("Activity title")],
+      },
+      {
+        title: "Start & End Date",
+        type: EDITOR_FIELDS.START_AND_END_DATE,
+        value: "",
+        fieldName: "startAndEndDate",
+        cols: 6,
+        rules: [requiredRule("Start & End Date")],
+      },
+      {
+        title: "City",
+        type: EDITOR_FIELDS.TEXT,
+        value: "",
+        fieldName: "city",
+        cols: 6,
+        rules: [requiredRule("City")],
+      },
+      {
+        title: "Description",
+        type: EDITOR_FIELDS.EDITOR,
+        value: "",
+        fieldName: "description",
+        cols: 12,
+      },
       ];
     },
   );
@@ -257,6 +294,7 @@ export const useUseBuilderFormTemplates = () => {
         value: "",
         fieldName: "referenceFullName",
         cols: 6,
+        rules: [requiredRule("Referent's Full Name")],
       },
       {
         title: "Company",
@@ -264,6 +302,7 @@ export const useUseBuilderFormTemplates = () => {
         value: "",
         fieldName: "company",
         cols: 6,
+        rules: [requiredRule("Company")],
       },
       {
         title: "Phone",
@@ -271,6 +310,7 @@ export const useUseBuilderFormTemplates = () => {
         value: "",
         fieldName: "phone",
         cols: 6,
+        rules: [requiredRule("Phone")],
       },
       {
         title: "Email",
@@ -278,6 +318,7 @@ export const useUseBuilderFormTemplates = () => {
         value: "",
         fieldName: "email",
         cols: 6,
+        rules: [requiredRule("Email")],
       },
     ];
   });
@@ -285,10 +326,10 @@ export const useUseBuilderFormTemplates = () => {
   const experienceSection = computed<Section>(() => ({
     title: sectionTitle.value,
     subtitle: sectionSubtitle.value,
-    formTemplate: experienceFormTemplate.value, // #TODO: Add inline schema for section
-    type: "some type", // #TODO: figure this out
+    formTemplate: experienceFormTemplate.value,
+    type: SectionTypes.EMPLOYMENT_HISTORY,
     addActionText: "Add one or more experience items",
-    dataKey: "employmentHistory",
+    dataKey: SectionTypes.EMPLOYMENT_HISTORY,
     itemTitleTemplate: [
       { fieldName: "jobTitle" },
       { text: "at" },
@@ -300,10 +341,10 @@ export const useUseBuilderFormTemplates = () => {
     title: "Education",
     subtitle:
       "Highlight your academic background, including your degree, the institution you attended, and relevant coursework. If you achieved any honors or distinctions, mention them here as well. This section provides insight into your foundational knowledge and expertise in your field of study.",
-    formTemplate: educationFormTemplate.value, // #TODO: Add inline schema for section
-    type: "some type", // #TODO: figure this out
-    addActionText: "Add one or more experience items",
-    dataKey: "education",
+    formTemplate: educationFormTemplate.value,
+    type: SectionTypes.EDUCATION,
+    addActionText: "Add one or more education items",
+    dataKey: SectionTypes.EDUCATION,
     itemTitleTemplate: [
       { fieldName: "school" },
       { text: "at" },
@@ -315,43 +356,43 @@ export const useUseBuilderFormTemplates = () => {
     title: "Projects",
     subtitle:
       "Detail any significant projects you've worked on, whether academic or professional. Describe the objectives of each project, your role and contributions, methodologies used, and the outcomes achieved. Emphasize any unique challenges overcome or innovative solutions implemented. This section demonstrates your practical skills and ability to apply theoretical knowledge to real-world scenarios.",
-    formTemplate: projectsFormTemplate.value, // #TODO: Add inline schema for section
-    type: "some type", // #TODO: figure this out
+    formTemplate: projectsFormTemplate.value,
+    type: SectionTypes.PROJECTS,
     addActionText: "Add one or more project items",
-    dataKey: "projects",
-    itemTitleTemplate: [{ fieldName: "projectName" }],
+    dataKey: SectionTypes.PROJECTS,
+    itemTitleTemplate: [{ fieldName: "projectName" }, { fieldName: "url" }],
   }));
 
   const websiteAndSocialLinksSection = computed<Section>(() => ({
     title: "Website and social links",
     subtitle:
       "Provide links to your personal website and professional social media profiles, such as LinkedIn, Twitter, Instagram, or Facebook. These platforms showcase your portfolio, work samples, professional achievements, and industry engagement. They also serve as networking tools for potential employers or collaborators to learn more about you and your expertise.",
-    formTemplate: WebsiteAndSocialLinksFormTemplate.value, // #TODO: Add inline schema for section
-    type: "some type", // #TODO: figure this out
+    formTemplate: websiteAndSocialLinksFormTemplate.value,
+    type: SectionTypes.SOCIAL_LINKS,
     addActionText: "Add one more link",
-    dataKey: "socialLinks",
-    itemTitleTemplate: [{ fieldName: "label" }],
+    dataKey: SectionTypes.SOCIAL_LINKS,
+    itemTitleTemplate: [{ fieldName: "label" }, { fieldName: "url" }],
   }));
 
   const skillsSection = computed<Section>(() => ({
     title: "Skills",
     subtitle:
       "List your core competencies and technical proficiencies relevant to your field. Include both hard skills (e.g., software proficiency, data analysis) and soft skills (e.g., communication, leadership). Tailor this section to highlight skills that align with the job you're applying for, emphasizing those most valued by potential employers.",
-    formTemplate: skillsFormTemplate.value, // #TODO: Add inline schema for section
-    type: SectionTypes.SKILLS, // #TODO: figure this out
+    formTemplate: skillsFormTemplate.value,
+    type: SectionTypes.SKILLS,
     addActionText: "Add one more skill",
-    dataKey: "skills",
-    itemTitleTemplate: [{ fieldName: "label" }],
+    dataKey: SectionTypes.SKILLS,
+    itemTitleTemplate: [{ fieldName: "skillName" }],
   }));
 
-  const languaeSection = computed<Section>(() => ({
+  const languageSection = computed<Section>(() => ({
     title: "Languages",
     subtitle:
       "Indicate your proficiency in languages other than your native tongue. Specify your level of fluency (e.g., fluent, proficient, basic) for each language listed. This section demonstrates your cultural awareness, communication abilities, and potential to work in diverse environments.",
-    formTemplate: LanguagesFormTemplate.value, // #TODO: Add inline schema for section
-    type: "some type", // #TODO: figure this out
+    formTemplate: LanguagesFormTemplate.value,
+    type: SectionTypes.LANGUAGES,
     addActionText: "Add one more language",
-    dataKey: "languages",
+    dataKey: SectionTypes.LANGUAGES,
     itemTitleTemplate: [{ fieldName: "language" }],
   }));
 
@@ -359,10 +400,10 @@ export const useUseBuilderFormTemplates = () => {
     title: "Internships",
     subtitle:
       "Detail any relevant internships or work experiences you've completed, including the organization, duration, and your responsibilities. Highlight key projects or achievements during your internship and quantify results whenever possible. This section illustrates your practical experience, professional growth, and readiness for entry-level positions in your field.",
-    formTemplate: experienceFormTemplate.value, // #TODO: Add inline schema for section
-    type: "some type", // #TODO: figure this out
+    formTemplate: experienceFormTemplate.value,
+    type: SectionTypes.INTERNSHIPS,
     addActionText: "Add one more internship",
-    dataKey: "internships",
+    dataKey: SectionTypes.INTERNSHIPS,
     itemTitleTemplate: [
       { fieldName: "jobTitle" },
       { text: "at" },
@@ -370,14 +411,14 @@ export const useUseBuilderFormTemplates = () => {
     ],
   }));
 
-  const courcesSection = computed<Section>(() => ({
+  const coursesSection = computed<Section>(() => ({
     title: "Courses",
     subtitle:
       "List any additional courses, workshops, or certifications you've completed to enhance your skills or knowledge base. Include the institution or platform where you completed each course and any notable achievements or learning outcomes. This section showcases your commitment to continuous learning and professional development.",
-    formTemplate: CourcesFormTemplate.value, // #TODO: Add inline schema for section
-    type: "some type", // #TODO: figure this out
-    addActionText: "Add one more cource",
-    dataKey: "courses",
+    formTemplate: coursesFormTemplate.value,
+    type: SectionTypes.COURSES,
+    addActionText: "Add one more course",
+    dataKey: SectionTypes.COURSES,
     itemTitleTemplate: [{ fieldName: "courseName" }],
   }));
 
@@ -385,21 +426,21 @@ export const useUseBuilderFormTemplates = () => {
     title: "Hobbies",
     subtitle:
       "Share your interests and extracurricular activities outside of work or academics. Briefly describe each hobby and how it contributes to your personal growth, creativity, or well-being. While not directly related to your professional qualifications, this section provides insight into your personality, interests, and potential cultural fit within an organization.",
-    formTemplate: hobbiesFormTemplate.value, // #TODO: Add inline schema for section
-    type: "some type", // #TODO: figure this out
+    formTemplate: hobbiesFormTemplate.value,
+    type: SectionTypes.HOBBIES,
     addActionText: "Add one more hobby",
-    dataKey: "hobbies",
-    itemTitleTemplate: [{ fieldName: "courseName" }],
+    dataKey: SectionTypes.HOBBIES,
+    itemTitleTemplate: [{ fieldName: "hobby" }],
   }));
 
   const extraCurricularActivitiesSection = computed<Section>(() => ({
     title: "Extra-curricular Activities",
     subtitle:
       "Highlight your involvement in volunteer work, clubs, associations, or community initiatives. Describe your role, contributions, and any leadership positions held. Showcase how your extracurricular activities have developed skills such as teamwork, leadership, and communication. This section demonstrates your commitment to community engagement, leadership potential, and well-roundedness.",
-    formTemplate: extraCurricularActivitiesFormTemplate.value, // #TODO: Add inline schema for section
-    type: "some type", // #TODO: figure this out
+    formTemplate: extraCurricularActivitiesFormTemplate.value,
+    type: SectionTypes.EXTRA_CURRICULAR,
     addActionText: "Add one more activity",
-    dataKey: "extraCurricularActivities",
+    dataKey: SectionTypes.EXTRA_CURRICULAR,
     itemTitleTemplate: [{ fieldName: "activityTitle" }],
   }));
 
@@ -407,10 +448,10 @@ export const useUseBuilderFormTemplates = () => {
     title: "References",
     subtitle:
       "Indicate that references are available upon request. Avoid listing specific references unless requested by the employer. Ensure you have obtained permission from your references before providing their contact information. This section signals your readiness to provide credible testimonials from past employers, supervisors, or mentors when needed.",
-    formTemplate: referenceFormTemplate.value, // #TODO: Add inline schema for section
-    type: "some type", // #TODO: figure this out
+    formTemplate: referenceFormTemplate.value,
+    type: SectionTypes.REFERENCES,
     addActionText: "Add one more reference",
-    dataKey: "references",
+    dataKey: SectionTypes.REFERENCES,
     itemTitleTemplate: [{ fieldName: "referenceFullName" }],
   }));
 
@@ -421,9 +462,9 @@ export const useUseBuilderFormTemplates = () => {
       educationSection.value,
       websiteAndSocialLinksSection.value,
       skillsSection.value,
-      languaeSection.value,
+      languageSection.value,
       internshipSection.value,
-      courcesSection.value,
+      coursesSection.value,
       hobbiesSection.value,
       extraCurricularActivitiesSection.value,
       referencesSection.value,
