@@ -45,6 +45,7 @@ export type CourseItem = {
 export type ExtraCurricularActivityItem = {
   activityTitle: string;
   startAndEndDate: string; // Consider Date objects
+  city: string;
   description: string; // Rich text placeholder
 };
 
@@ -55,7 +56,8 @@ export type ReferenceItem = {
   email: string;
 };
 
-type ResumeInformation = {
+export type ResumeInformation = {
+  jobTitle: string;
   firstName: string;
   lastName: string;
   email: string;
@@ -76,7 +78,11 @@ type ResumeInformation = {
   skills: SkillItem[];
   languages: LanguageItem[];
   courses: CourseItem[];
-  hobbies: string;
+  hobbies: HobbyItem[];
   extraCurricularActivities: ExtraCurricularActivityItem[];
   references: ReferenceItem[];
+};
+
+export type HobbyItem = {
+  hobby: string;
 };

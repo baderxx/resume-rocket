@@ -4,12 +4,15 @@ export enum EDITOR_FIELDS {
   EDITOR = "editor",
 }
 
+export type ValidationRule = (value: unknown) => true | string;
+
 export type EditorFieldSchema = {
   title: string;
   type: EDITOR_FIELDS;
   value: string;
   fieldName: string;
   cols: number;
+  rules?: ValidationRule[];
 };
 
 export type SectionItemTitleTemplate = { fieldName: string } | { text: string };

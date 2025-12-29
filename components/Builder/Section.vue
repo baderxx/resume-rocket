@@ -1,5 +1,8 @@
 <script setup lang="ts">
-import { useResumeInformation } from "@/composables/useResumeInformation";
+import {
+  createDefaultSectionItem,
+  useResumeInformation,
+} from "@/composables/useResumeInformation";
 import type {
   EditorFieldSchema,
   SectionItemTitleTemplate,
@@ -50,6 +53,10 @@ const onAddNewSectionItem = async () => {
   if (!resumeData.value[props.sectionDataKey]) {
     resumeData.value[props.sectionDataKey] = [];
   }
+  const defaultItem = createDefaultSectionItem(
+    (props.sectionType || props.sectionDataKey) as SectionTypes,
+  );
+  (resumeData.value[props.sectionDataKey] as unknown[]).push(defaultItem);
   sectionItems.value.push({ fields: props.formTemplate });
 };
 </script>

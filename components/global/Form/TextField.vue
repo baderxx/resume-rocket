@@ -1,21 +1,30 @@
 <script lang="ts" setup>
+import { computed } from "vue";
+
 type TextFieldProps = {
   modelValue: string;
   label: string;
   placeholder: string;
   name?: string;
+  error?: boolean;
+  errorMessage?: string;
 };
 
-withDefaults(defineProps<Partial<TextFieldProps>>(), {
+const props = withDefaults(defineProps<Partial<TextFieldProps>>(), {
   modelValue: "",
   label: "label",
   placeholder: "placeholder",
   name: "",
+  error: false,
+  errorMessage: "",
 });
 
 const emit = defineEmits(["update:modelValue", "blur"]);
 
-const isError = ref(false);
+const isError = computed(() => !!props.error);
+const message = computed(
+  () => props.errorMessage || `${props.label} is required and cannot be empty`,
+);
 </script>
 <template>
   <label
@@ -37,6 +46,6 @@ const isError = ref(false);
     @blur.prevent="emit('blur')"
   />
   <p v-if="isError" class="mt-1 text-xs text-red-500">
-    {{ label }} is required and cannot be empty
+    {{ message }}
   </p>
 </template>
