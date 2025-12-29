@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import type { ResumeInformation } from "@/types/resumeData";
+import type { DateRange, ResumeInformation } from "@/types/resumeData";
 import { computed } from "vue";
 
 type PartialResume = Partial<ResumeInformation> & {
@@ -32,6 +32,14 @@ const safeEducation = computed(() => props.resume.education ?? []);
 const safeSkills = computed(() => props.resume.skills ?? []);
 const safeLanguages = computed(() => props.resume.languages ?? []);
 const safeProjects = computed(() => props.resume.projects ?? []);
+
+const formatDateRange = (range?: DateRange | string) => {
+  if (!range) return "";
+  if (typeof range === "string") return range;
+  const { startDate, endDate } = range;
+  if (!startDate && !endDate) return "";
+  return [startDate, endDate || "Present"].filter(Boolean).join(" — ");
+};
 </script>
 
 <template>
@@ -83,7 +91,7 @@ const safeProjects = computed(() => props.resume.projects ?? []);
                 <p
                   class="text-xs font-semibold uppercase tracking-wide text-slate-500"
                 >
-                  {{ item.startAndEndDate || "Dates" }}
+                  {{ formatDateRange(item.startAndEndDate) || "Dates" }}
                 </p>
               </div>
               <p class="text-sm font-medium text-slate-700">
@@ -122,7 +130,7 @@ const safeProjects = computed(() => props.resume.projects ?? []);
                 <p
                   class="text-xs font-semibold uppercase tracking-wide text-slate-500"
                 >
-                  {{ project.startAndEndDate || "Year" }}
+                  {{ formatDateRange(project.startAndEndDate) || "Year" }}
                 </p>
               </div>
               <p class="text-xs font-medium text-slate-700">
@@ -158,7 +166,7 @@ const safeProjects = computed(() => props.resume.projects ?? []);
               <p
                 class="text-xs font-semibold uppercase tracking-wide text-slate-500"
               >
-                {{ item.startAndEndDate || item.city }}
+                {{ formatDateRange(item.startAndEndDate) || item.city }}
               </p>
               <p class="text-xs text-slate-600">{{ item.description }}</p>
             </div>

@@ -20,7 +20,7 @@ export const mockResumeInformation: ResumeInformation = {
     {
       jobTitle: "Lead Frontend Engineer",
       employer: "Brightwave Labs",
-      startAndEndDate: "2019 — Present",
+      startAndEndDate: { startDate: "2019-01", endDate: "" },
       city: "Austin",
       description:
         "Guided a cross-functional squad delivering design systems, improved Lighthouse scores by 28%, and mentored four engineers to senior roles.",
@@ -28,7 +28,7 @@ export const mockResumeInformation: ResumeInformation = {
     {
       jobTitle: "Software Engineer",
       employer: "Northwind",
-      startAndEndDate: "2016 — 2019",
+      startAndEndDate: { startDate: "2016-06", endDate: "2019-06" },
       city: "Remote",
       description:
         "Built customer onboarding flows, collaborated with product on experimentation, and reduced onboarding time by 35%.",
@@ -38,7 +38,7 @@ export const mockResumeInformation: ResumeInformation = {
     {
       projectName: "Resume Rocket",
       url: "resumerocket.app",
-      startAndEndDate: "2023",
+      startAndEndDate: { startDate: "2023-01", endDate: "2023-12" },
       description:
         "A streamlined resume builder featuring live previews, reusable templates, and accessible defaults.",
     },
@@ -47,7 +47,7 @@ export const mockResumeInformation: ResumeInformation = {
     {
       school: "University of Colorado",
       degree: "B.S. Computer Science",
-      startAndEndDate: "2012 — 2016",
+      startAndEndDate: { startDate: "2012-09", endDate: "2016-05" },
       city: "Boulder",
       description:
         "Graduated magna cum laude with a focus on human-computer interaction.",
@@ -98,7 +98,7 @@ export const modernMockResumeInformation: ResumeInformation = {
     {
       jobTitle: "Senior Product Designer",
       employer: "Lighthouse",
-      startAndEndDate: "2020 — Present",
+      startAndEndDate: { startDate: "2020-01", endDate: "" },
       city: "Seattle",
       description:
         "Own end-to-end experience strategy for the analytics suite, partnering with engineering to ship features used by 20k+ customers.",
