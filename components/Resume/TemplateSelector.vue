@@ -1,7 +1,7 @@
 <script setup lang="ts">
-import { ref } from "vue";
-import type { Component } from "vue";
 import type { ResumeInformation } from "@/types/resumeData";
+import type { Component } from "vue";
+import { ref } from "vue";
 
 type ResumeTemplate = {
   id: string;
@@ -41,12 +41,16 @@ const changeTemplate = (id: string) => emit("update:selectedTemplateId", id);
 
 <template>
   <div class="rounded-lg border border-white/20 bg-white/10 p-4 backdrop-blur">
-    <div class="flex flex-col gap-2 md:flex-row md:items-center md:justify-between">
+    <div
+      class="flex flex-col gap-2 md:flex-row md:items-center md:justify-between"
+    >
       <div class="flex items-center gap-2 text-white">
         <font-awesome-icon class="text-lg" :icon="['fas', 'pencil']" />
         <div>
           <p class="text-sm font-semibold uppercase tracking-wide">Templates</p>
-          <p class="text-xs text-white/70">Switch layouts without losing your data.</p>
+          <p class="text-xs text-white/70">
+            Switch layouts without losing your data.
+          </p>
         </div>
       </div>
       <div class="flex items-center gap-2 text-xs font-medium text-white">
@@ -69,7 +73,11 @@ const changeTemplate = (id: string) => emit("update:selectedTemplateId", id);
       </div>
     </div>
 
-    <div v-if="templates.length" class="mt-3 grid gap-3" :class="layoutMode === 'grid' ? 'md:grid-cols-2' : 'grid-cols-1'">
+    <div
+      v-if="templates.length"
+      class="mt-3 grid gap-3"
+      :class="layoutMode === 'grid' ? 'md:grid-cols-2' : 'grid-cols-1'"
+    >
       <article
         v-for="template in templates"
         :key="template.id"
@@ -88,18 +96,27 @@ const changeTemplate = (id: string) => emit("update:selectedTemplateId", id);
           </span>
         </div>
 
-        <div class="mt-3 rounded-md border border-white/15 bg-white/80 p-3 text-gray-900 shadow-inner">
+        <div
+          class="mt-3 rounded-md border border-white/15 bg-white/80 p-3 text-gray-900 shadow-inner"
+        >
           <div class="flex flex-col gap-2">
             <div>
-              <p class="text-sm font-semibold">{{ formatName(template.previewResume) }}</p>
-              <p class="text-xs text-gray-600">{{ template.previewResume.jobTitle }}</p>
+              <p class="text-sm font-semibold">
+                {{ formatName(template.previewResume) }}
+              </p>
+              <p class="text-xs text-gray-600">
+                {{ template.previewResume.jobTitle }}
+              </p>
             </div>
             <p class="text-xs leading-relaxed text-gray-700">
               {{ truncate(template.previewResume.professionalSummary) }}
             </p>
             <div class="flex flex-wrap gap-1">
               <span
-                v-for="(tag, idx) in template.tags ?? ['ATS friendly', 'Quick to scan']"
+                v-for="(tag, idx) in template.tags ?? [
+                  'ATS friendly',
+                  'Quick to scan',
+                ]"
                 :key="`${template.id}-${idx}`"
                 class="rounded-full bg-gray-100 px-2 py-0.5 text-[10px] font-semibold uppercase tracking-wide text-gray-600"
               >
@@ -115,12 +132,15 @@ const changeTemplate = (id: string) => emit("update:selectedTemplateId", id);
           type="button"
           @click="changeTemplate(template.id)"
         >
-          {{ selectedTemplateId === template.id ? 'Selected' : 'Use template' }}
+          {{ selectedTemplateId === template.id ? "Selected" : "Use template" }}
         </button>
       </article>
     </div>
 
-    <div v-else class="mt-4 rounded-md border border-dashed border-white/30 bg-white/5 p-4 text-sm text-white/80">
+    <div
+      v-else
+      class="mt-4 rounded-md border border-dashed border-white/30 bg-white/5 p-4 text-sm text-white/80"
+    >
       No templates are available yet. Templates you add will appear here.
     </div>
   </div>

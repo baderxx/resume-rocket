@@ -49,7 +49,8 @@ export const mockResumeInformation: ResumeInformation = {
       degree: "B.S. Computer Science",
       startAndEndDate: "2012 — 2016",
       city: "Boulder",
-      description: "Graduated magna cum laude with a focus on human-computer interaction.",
+      description:
+        "Graduated magna cum laude with a focus on human-computer interaction.",
     },
   ],
   socialLinks: [
