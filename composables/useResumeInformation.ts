@@ -1,8 +1,6 @@
-type DeepPartial<T> = {
-  [K in keyof T]?: T[K] extends object ? DeepPartial<T[K]> : any;
-};
+import { ref, type Ref } from "vue";
 
-const resumeInformationSchema = {
+export const resumeInformationSchema = {
   jobTitle: "",
   firstName: "",
   lastName: "",
@@ -86,8 +84,16 @@ const resumeInformationSchema = {
   ],
 };
 
+export type ResumeInformation = typeof resumeInformationSchema;
+
+export type DeepPartial<T> = {
+  [K in keyof T]?: T[K] extends object ? DeepPartial<T[K]> : any;
+};
+
 export function useResumeInformation() {
-  const resumeData: Ref<DeepPartial<any>> = ref(resumeInformationSchema);
+  const resumeData: Ref<DeepPartial<ResumeInformation>> = ref(
+    resumeInformationSchema,
+  );
 
   return {
     resumeData,
