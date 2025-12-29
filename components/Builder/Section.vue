@@ -9,9 +9,29 @@ import type {
   EditorFieldSchema,
   SectionItemTitleTemplate,
 } from "@/types/builder";
+import type { ResumeInformation } from "@/types/resumeData";
 import { SectionTypes } from "~/types/enums";
+
+type DeepPartial<T> = {
+  [K in keyof T]?: T[K] extends object ? DeepPartial<T[K]> : T[K];
+};
+
+type ResumeCollectionKey =
+  | "employmentHistory"
+  | "projects"
+  | "education"
+  | "socialLinks"
+  | "skills"
+  | "languages"
+  | "courses"
+  | "hobbies"
+  | "extraCurricularActivities"
+  | "references";
+
+type ResumeCollectionValue = Array<Record<string, unknown>>;
+
 const { resumeData } = useResumeInformation();
-const resumeDataRecord = resumeData as Ref<Record<string, any>>;
+const resumeDataRecord = resumeData as Ref<DeepPartial<ResumeInformation>>;
 
 type SectionItems = {
   fields: EditorFieldSchema[];
@@ -38,32 +58,45 @@ const props = withDefaults(defineProps<Partial<SectionProps>>(), {
   formTemplate: () => [],
 });
 
+const sectionDataKeyTyped = computed<ResumeCollectionKey>(
+  () => props.sectionDataKey as ResumeCollectionKey,
+);
+
+const sectionArray = computed(() => {
+  const key = sectionDataKeyTyped.value;
+  const existing = resumeDataRecord.value[key];
+
+  const preparedArray = Array.isArray(existing)
+    ? (existing as ResumeCollectionValue)
+    : [];
+
+  resumeDataRecord.value[key] =
+    preparedArray as DeepPartial<ResumeInformation>[typeof key];
+
+  return preparedArray;
+});
+
 const getCompiledSectionTitle = computed(() => (index: number) => {
   // #TODO: fix the item type its not properly infering from defined props type
+  const entry = sectionArray.value[index];
+
   return props.itemTitleTemplate
     .map((item: any) => {
       if (item.fieldName)
         return (
-          resumeDataRecord.value[props.sectionDataKey]?.[index]?.[
-            item.fieldName
-          ] ||
-          "(Not Specified)"
+          (entry?.[item.fieldName] as string | undefined) || "(Not Specified)"
         );
       if (item.text) return item.text;
+      return "";
     })
     .join(" ");
 });
 
 const onAddNewSectionItem = async () => {
-  if (!resumeDataRecord.value[props.sectionDataKey]) {
-    resumeDataRecord.value[props.sectionDataKey] = [];
-  }
   const defaultItem = createDefaultSectionItem(
     (props.sectionType || props.sectionDataKey) as SectionTypes,
   );
-  (resumeDataRecord.value[props.sectionDataKey] as unknown[]).push(
-    defaultItem,
-  );
+  sectionArray.value.push(defaultItem);
   sectionItems.value.push({ fields: props.formTemplate });
 };
 </script>
@@ -107,7 +140,7 @@ const onAddNewSectionItem = async () => {
       </template>
       <template #content>
         <builder-section-form
-          v-model="resumeDataRecord[sectionDataKey][index]"
+          v-model="sectionArray[index]"
           :fields="sectionItem.fields"
           class="mt-3"
         />
