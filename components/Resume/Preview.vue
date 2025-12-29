@@ -8,11 +8,6 @@ import SpotlightTemplate from "@/components/Resume/Templates/SpotlightTemplate.v
 import ResumeTemplateSelector from "@/components/Resume/TemplateSelector.vue";
 import { useResumeInformation } from "@/composables/useResumeInformation";
 import type { ResumeInformation } from "@/types/resumeData";
-import {
-  mockResumeInformation,
-  modernMockResumeInformation,
-  spotlightMockResumeInformation,
-} from "@/utils/mockResumeData";
 
 type ResumeTemplate = {
   id: string;
@@ -40,7 +35,6 @@ const templates: ResumeTemplate[] = [
     description:
       "A balanced two-column layout with bold headers and clean typography.",
     component: ClassicTemplate,
-    previewResume: mockResumeInformation,
     tags: ["ATS friendly", "Two column"],
   },
   {
@@ -49,7 +43,6 @@ const templates: ResumeTemplate[] = [
     description:
       "Strong sidebar contrast and modern section dividers for standout details.",
     component: ModernTemplate,
-    previewResume: modernMockResumeInformation,
     tags: ["Minimal", "Contrast"],
   },
   {
@@ -58,7 +51,6 @@ const templates: ResumeTemplate[] = [
     description:
       "Hero summary ribbon paired with clean sections to spotlight achievements.",
     component: SpotlightTemplate,
-    previewResume: spotlightMockResumeInformation,
     tags: ["Profile first", "Hiring ready"],
   },
 ];
@@ -108,14 +100,10 @@ const hasUserContent = computed(() => {
 });
 
 const displayResumeData = computed<DisplayResume>(() => {
-  if (hasUserContent.value) {
-    return resumeData.value as DisplayResume;
-  }
-
-  return selectedTemplate.value?.previewResume ?? mockResumeInformation;
+  return resumeData.value as DisplayResume;
 });
 
-const isUsingMockData = computed(() => !hasUserContent.value);
+const isUsingEmptyData = computed(() => !hasUserContent.value);
 
 const handleTemplateChange = (templateId: string) => {
   selectedTemplateId.value = templateId;
@@ -169,10 +157,10 @@ const handleTemplateChange = (templateId: string) => {
           </div>
         </div>
         <div
-          v-if="isUsingMockData"
+          v-if="isUsingEmptyData"
           class="pointer-events-none absolute left-1/2 top-3 -translate-x-1/2 rounded-full bg-white/90 px-3 py-1 text-xs font-semibold text-slate-700 shadow"
         >
-          Showing example data. Start editing to personalize.
+          Start adding your details to see them reflected here.
         </div>
       </div>
     </div>
@@ -208,6 +196,7 @@ const handleTemplateChange = (templateId: string) => {
             v-if="hasTemplates"
             :templates="templates"
             :selected-template-id="selectedTemplateId"
+            :preview-resume="displayResumeData"
             @update:selected-template-id="handleTemplateChange"
           />
           <div
