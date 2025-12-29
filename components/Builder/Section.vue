@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import { computed, ref, type Ref } from "vue";
+
 import {
   createDefaultSectionItem,
   useResumeInformation,
@@ -9,6 +11,7 @@ import type {
 } from "@/types/builder";
 import { SectionTypes } from "~/types/enums";
 const { resumeData } = useResumeInformation();
+const resumeDataRecord = resumeData as Ref<Record<string, any>>;
 
 type SectionItems = {
   fields: EditorFieldSchema[];
@@ -41,7 +44,9 @@ const getCompiledSectionTitle = computed(() => (index: number) => {
     .map((item: any) => {
       if (item.fieldName)
         return (
-          resumeData.value[props.sectionDataKey]?.[index]?.[item.fieldName] ||
+          resumeDataRecord.value[props.sectionDataKey]?.[index]?.[
+            item.fieldName
+          ] ||
           "(Not Specified)"
         );
       if (item.text) return item.text;
@@ -50,13 +55,15 @@ const getCompiledSectionTitle = computed(() => (index: number) => {
 });
 
 const onAddNewSectionItem = async () => {
-  if (!resumeData.value[props.sectionDataKey]) {
-    resumeData.value[props.sectionDataKey] = [];
+  if (!resumeDataRecord.value[props.sectionDataKey]) {
+    resumeDataRecord.value[props.sectionDataKey] = [];
   }
   const defaultItem = createDefaultSectionItem(
     (props.sectionType || props.sectionDataKey) as SectionTypes,
   );
-  (resumeData.value[props.sectionDataKey] as unknown[]).push(defaultItem);
+  (resumeDataRecord.value[props.sectionDataKey] as unknown[]).push(
+    defaultItem,
+  );
   sectionItems.value.push({ fields: props.formTemplate });
 };
 </script>
@@ -100,7 +107,7 @@ const onAddNewSectionItem = async () => {
       </template>
       <template #content>
         <builder-section-form
-          v-model="resumeData[sectionDataKey][index]"
+          v-model="resumeDataRecord[sectionDataKey][index]"
           :fields="sectionItem.fields"
           class="mt-3"
         />
